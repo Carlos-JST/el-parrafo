@@ -1,0 +1,1068 @@
+/* ==========================================================================
+   EL PÁRRAFO — Hoja de estilos principal
+   --------------------------------------------------------------------------
+   Índice:
+   01. Variables (:root)
+   02. Reset y estilos base
+   03. Utilidades reutilizables
+   04. Botones, etiquetas y enlaces
+   05. Cabecera (barra superior, logo, búsqueda, navegación)
+   06. Menú móvil
+   07. Portada (noticia principal / carrusel)
+   08. Últimas noticias
+   09. Opinión
+   10. Boletín
+   11. Pie de página
+   12. Accesibilidad y preferencias del sistema
+
+   Método: mobile first. Los `@media (min-width: …)` van junto al componente
+   que modifican, no todos juntos al final.
+   ========================================================================== */
+
+
+/* ==========================================================================
+   01. VARIABLES
+   Cambia aquí un valor y se actualiza en toda la página.
+   ========================================================================== */
+:root {
+  /* --- Colores de marca --- */
+  --color-negro:       #111111;
+  --color-oscuro:      #2A2A2A;
+  --color-gris:        #F5F5F5;
+  --color-blanco:      #FFFFFF;
+  --color-rojo:        #C8102E;
+
+  /* --- Colores derivados (se calculan a partir de los de arriba) --- */
+  --color-texto:       var(--color-negro);
+  --color-texto-suave: #5C5C5C;
+  --color-borde:       #E3E3E1;
+  --color-borde-suave: #EFEFED;
+
+  /* --- Tipografías --- */
+  --fuente-titulo: "Playfair Display", Georgia, "Times New Roman", serif;
+  --fuente-texto:  "Inter", system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+
+  /* --- Escala tipográfica ---
+     clamp(mínimo, valor fluido, máximo): el texto crece con la pantalla
+     pero nunca baja del mínimo ni pasa del máximo. */
+  --txt-xs:   0.6875rem;   /* 11px — etiquetas y metadatos */
+  --txt-sm:   0.8125rem;   /* 13px — navegación y botones */
+  --txt-base: 1rem;        /* 16px — texto corrido */
+  --txt-md:   1.0625rem;   /* 17px — entradillas */
+
+  --tit-xs: clamp(1.1rem,  1.02rem + 0.35vw, 1.3rem);
+  --tit-sm: clamp(1.35rem, 1.2rem  + 0.7vw,  1.75rem);
+  --tit-md: clamp(1.75rem, 1.35rem + 1.7vw,  2.75rem);
+  --tit-lg: clamp(2.3rem,  1.55rem + 3.3vw,  4.25rem);
+
+  /* --- Espaciado --- */
+  --e-1: 0.25rem;
+  --e-2: 0.5rem;
+  --e-3: 0.75rem;
+  --e-4: 1rem;
+  --e-5: 1.5rem;
+  --e-6: 2rem;
+  --e-7: 2.5rem;
+  --e-8: 3rem;
+  --e-9: 4rem;
+  --e-10: 5rem;
+
+  /* Espacio vertical de cada sección grande (fluido) */
+  --e-seccion: clamp(2.5rem, 1.4rem + 4vw, 4.5rem);
+
+  /* --- Layout --- */
+  --ancho-contenedor: 1240px;
+  --margen-lateral: clamp(1.15rem, 4vw, 2.5rem);
+
+  /* --- Bordes y sombras (muy discretas, estilo editorial) --- */
+  --linea:        1px solid var(--color-borde);
+  --linea-fuerte: 2px solid var(--color-negro);
+  --radio: 2px;
+  --sombra-fija: 0 1px 0 var(--color-borde), 0 6px 18px rgba(17, 17, 17, 0.05);
+
+  /* --- Movimiento --- */
+  --transicion: 200ms ease;
+}
+
+
+/* ==========================================================================
+   02. RESET Y BASE
+   ========================================================================== */
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background-color: var(--color-blanco);
+  color: var(--color-texto);
+  font-family: var(--fuente-texto);
+  font-size: var(--txt-base);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden; /* red de seguridad contra desbordes horizontales */
+}
+
+/* Bloquea el scroll del fondo mientras el menú móvil está abierto */
+body.sin-scroll { overflow: hidden; }
+
+h1, h2, h3, h4 {
+  margin: 0;
+  font-family: var(--fuente-titulo);
+  font-weight: 700;
+  line-height: 1.12;
+  letter-spacing: -0.01em;
+  text-wrap: balance; /* evita títulos con una sola palabra en la última línea */
+}
+
+p { margin: 0; }
+
+ul { margin: 0; padding: 0; list-style: none; }
+
+a { color: inherit; }
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+figure { margin: 0; }
+
+button,
+input {
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+}
+
+button { cursor: pointer; }
+
+
+/* ==========================================================================
+   03. UTILIDADES
+   ========================================================================== */
+
+/* Centra el contenido y le pone un ancho máximo: en pantallas grandes
+   el periódico no se estira infinitamente. */
+.contenedor {
+  width: 100%;
+  max-width: var(--ancho-contenedor);
+  margin-inline: auto;
+  padding-inline: var(--margen-lateral);
+}
+
+/* Texto visible solo para lectores de pantalla */
+.visualmente-oculto {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* Enlace "Saltar al contenido": aparece al navegar con el teclado */
+.salto-contenido {
+  position: absolute;
+  top: -100px;
+  left: var(--e-4);
+  z-index: 100;
+  padding: var(--e-3) var(--e-4);
+  background-color: var(--color-negro);
+  color: var(--color-blanco);
+  font-size: var(--txt-sm);
+  text-decoration: none;
+  transition: top var(--transicion);
+}
+.salto-contenido:focus { top: var(--e-4); }
+
+/* Cabecera de sección: título pequeño + enlace, con línea inferior */
+.seccion-cabeza {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--e-4);
+  padding-bottom: var(--e-3);
+  border-bottom: var(--linea-fuerte);
+  margin-bottom: var(--e-6);
+}
+
+.seccion-cabeza__titulo {
+  font-family: var(--fuente-texto);
+  font-size: var(--txt-sm);
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+/* Línea de datos secundarios: fecha, autor, tiempo de lectura */
+.meta {
+  font-size: var(--txt-xs);
+  letter-spacing: 0.06em;
+  color: var(--color-texto-suave);
+}
+
+
+/* ==========================================================================
+   04. BOTONES, ETIQUETAS Y ENLACES
+   ========================================================================== */
+.boton {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--e-2);
+  padding: 0.9rem 1.6rem;
+  border: 1px solid var(--color-negro);
+  border-radius: var(--radio);
+  background-color: var(--color-negro);
+  color: var(--color-blanco);
+  font-size: var(--txt-sm);
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: background-color var(--transicion), border-color var(--transicion), color var(--transicion);
+}
+
+.boton--primario:hover,
+.boton--primario:focus-visible {
+  background-color: var(--color-rojo);
+  border-color: var(--color-rojo);
+}
+
+.boton--secundario {
+  background-color: transparent;
+  color: var(--color-negro);
+}
+.boton--secundario:hover,
+.boton--secundario:focus-visible {
+  background-color: var(--color-negro);
+  color: var(--color-blanco);
+}
+
+/* Etiqueta de categoría (SOCIEDAD, ECONOMÍA…) */
+.etiqueta {
+  font-size: var(--txt-xs);
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+.etiqueta--roja { color: var(--color-rojo); }
+
+/* Enlace "Leer más →" */
+.enlace-leer {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--e-2);
+  font-size: var(--txt-xs);
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--color-negro);
+  border-bottom: 1px solid var(--color-negro);
+  padding-bottom: 2px;
+  width: fit-content;
+  transition: color var(--transicion), border-color var(--transicion);
+}
+.enlace-leer:hover,
+.enlace-leer:focus-visible {
+  color: var(--color-rojo);
+  border-color: var(--color-rojo);
+}
+
+/* Botón con icono (Menú / Buscar / Cerrar) */
+.boton-icono {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--e-2);
+  padding: var(--e-2);
+  border: 0;
+  background: none;
+  color: var(--color-negro);
+  font-size: var(--txt-sm);
+  letter-spacing: 0.08em;
+  transition: color var(--transicion);
+}
+.boton-icono:hover { color: var(--color-rojo); }
+.boton-icono svg { width: 22px; height: 22px; fill: currentColor; }
+
+/* --- Estado abierto / cerrado ---
+   El botón lleva dentro los dos iconos y los dos textos.
+   El CSS enseña uno u otro leyendo el atributo aria-expanded, que el
+   JavaScript cambia. Así el mismo atributo sirve para la accesibilidad
+   y para el aspecto visual. */
+.boton-icono .icono--cerrar { display: none; }
+.boton-icono[aria-expanded="true"] .icono--abrir { display: none; }
+.boton-icono[aria-expanded="true"] .icono--cerrar { display: block; }
+.boton-icono[aria-expanded="true"] { color: var(--color-rojo); }
+
+.boton-icono__texto { display: none; }
+.boton-icono .texto--cerrar { display: none; }
+
+@media (min-width: 37.5em) {          /* 600px */
+  .boton-icono .texto--abrir { display: inline; }
+  .boton-icono[aria-expanded="true"] .texto--abrir { display: none; }
+  .boton-icono[aria-expanded="true"] .texto--cerrar { display: inline; }
+}
+
+
+/* ==========================================================================
+   05. CABECERA
+   ========================================================================== */
+/* position + z-index dejan la cabecera POR ENCIMA del menú móvil.
+   Gracias a eso el botón puede seguir visible mostrando la X. */
+.cabecera {
+  position: relative;
+  z-index: 50;
+  background-color: var(--color-blanco);
+}
+
+/* --- 5.1 Barra superior negra --- */
+.barra-superior {
+  background-color: var(--color-negro);
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 0.625rem;          /* 10px: así la fecha cabe en una línea a 320px */
+  letter-spacing: 0.06em;
+}
+
+@media (min-width: 30em) {            /* 480px */
+  .barra-superior {
+    font-size: var(--txt-xs);
+    letter-spacing: 0.08em;
+  }
+}
+
+.barra-superior__interior {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--e-3);
+  min-height: 40px;
+  padding-block: var(--e-2);
+}
+
+.barra-superior__fecha {
+  display: flex;
+  align-items: center;
+  gap: var(--e-3);
+  text-transform: uppercase;
+}
+.barra-superior__lugar {
+  padding-left: var(--e-3);
+  border-left: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+.barra-superior__enlaces {
+  display: none;              /* en móvil vive dentro del menú lateral */
+  gap: var(--e-5);
+}
+.barra-superior__enlaces a {
+  text-decoration: none;
+  transition: color var(--transicion);
+}
+.barra-superior__enlaces a:hover { color: var(--color-blanco); }
+
+.redes {
+  display: flex;
+  align-items: center;
+  gap: var(--e-3);
+}
+.redes a {
+  display: block;
+  color: rgba(255, 255, 255, 0.75);
+  transition: color var(--transicion);
+}
+.redes a:hover { color: var(--color-blanco); }
+.redes svg { width: 16px; height: 16px; fill: currentColor; }
+
+@media (min-width: 62em) {            /* 992px */
+  .barra-superior__enlaces { display: flex; }
+}
+
+/* --- 5.2 Cabecera principal: menú · logo · buscar --- */
+.cabecera__rejilla {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: var(--e-3);
+  padding-block: clamp(1.25rem, 3vw, 2.25rem);
+}
+
+.boton-menu  { justify-self: start; }
+.boton-buscar { justify-self: end; }
+
+.logo {
+  justify-self: center;
+  text-align: center;
+  text-decoration: none;
+}
+
+.logo__nombre {
+  display: block;
+  font-family: var(--fuente-titulo);
+  font-weight: 700;
+  /* El mínimo (1.5rem) evita que "EL PÁRRAFO" se parta en dos líneas a 320px */
+  font-size: clamp(1.5rem, 0.75rem + 4vw, 3.75rem);
+  line-height: 1;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.logo__lema {
+  display: block;
+  margin-top: var(--e-2);
+  font-size: 0.5rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-texto-suave);
+}
+
+@media (min-width: 30em) {
+  .logo__lema { font-size: 0.5625rem; letter-spacing: 0.3em; }
+}
+
+@media (min-width: 48em) {
+  .logo__lema { font-size: var(--txt-xs); letter-spacing: 0.32em; }
+}
+
+/* --- 5.3 Panel de búsqueda --- */
+.panel-busqueda {
+  display: block;
+  border-top: var(--linea);
+  background-color: var(--color-gris);
+  padding-block: var(--e-5);
+  animation: aparecer-panel 220ms ease both;
+}
+/* El atributo hidden debe ganarle a la regla de arriba */
+.panel-busqueda[hidden] { display: none; }
+
+@keyframes aparecer-panel {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.panel-busqueda__forma {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--e-2);
+}
+
+/* Caja que contiene el campo y la X de limpiar */
+.panel-busqueda__campo-caja {
+  position: relative;
+  flex: 1 1 16rem;
+  min-width: 0;
+}
+
+.panel-busqueda__campo {
+  width: 100%;
+  padding: 0.85rem 2.75rem 0.85rem 1rem;   /* hueco a la derecha para la X */
+  border: 1px solid var(--color-borde);
+  border-radius: var(--radio);
+  background-color: var(--color-blanco);
+}
+.panel-busqueda__campo:focus-visible { border-color: var(--color-negro); }
+
+.panel-busqueda__limpiar {
+  position: absolute;
+  top: 50%;
+  right: 0.6rem;
+  transform: translateY(-50%);
+  display: flex;
+  padding: 0.35rem;
+  border: 0;
+  background: none;
+  color: var(--color-texto-suave);
+  transition: color var(--transicion);
+}
+.panel-busqueda__limpiar[hidden] { display: none; }
+.panel-busqueda__limpiar:hover { color: var(--color-rojo); }
+.panel-busqueda__limpiar svg { width: 16px; height: 16px; }
+
+/* --- Resultados de la búsqueda --- */
+.resultados__aviso {
+  min-height: 1.2em;
+  margin-top: var(--e-4);
+  font-size: var(--txt-sm);
+  color: var(--color-texto-suave);
+}
+
+.resultados__lista {
+  display: grid;
+  gap: 1px;                       /* el fondo gris hace de línea separadora */
+  margin-top: var(--e-3);
+  background-color: var(--color-borde);
+  border-block: 1px solid var(--color-borde);
+}
+.resultados__lista:empty { display: none; }
+
+.resultados__enlace {
+  display: grid;
+  gap: var(--e-1);
+  padding: var(--e-3) var(--e-4);
+  background-color: var(--color-blanco);
+  text-decoration: none;
+  transition: background-color var(--transicion);
+}
+.resultados__enlace:hover { background-color: var(--color-gris); }
+
+.resultados__categoria {
+  font-size: var(--txt-xs);
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-rojo);
+}
+
+.resultados__titulo {
+  font-family: var(--fuente-titulo);
+  font-size: 1.05rem;
+  line-height: 1.25;
+}
+
+@media (min-width: 48em) {
+  .resultados__lista { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* --- 5.4 Navegación de secciones --- */
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  border-block: var(--linea);
+  background-color: var(--color-blanco);
+  transition: box-shadow var(--transicion);
+}
+.nav.esta-fijada { box-shadow: var(--sombra-fija); }
+
+.nav__lista {
+  display: flex;
+  justify-content: flex-start;
+  overflow-x: auto;              /* en móvil la barra se desliza en horizontal */
+  scrollbar-width: none;
+}
+.nav__lista::-webkit-scrollbar { display: none; }
+
+.nav__lista a {
+  display: block;
+  padding: 0.85rem 1.05rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  text-decoration: none;
+  white-space: nowrap;
+  color: var(--color-oscuro);
+  border-bottom: 2px solid transparent;
+  transition: color var(--transicion), border-color var(--transicion);
+}
+
+.nav__lista li + li a { border-left: 1px solid var(--color-borde-suave); }
+
+.nav__lista a:hover,
+.nav__lista a:focus-visible {
+  color: var(--color-negro);
+  border-bottom-color: var(--color-negro);
+}
+
+/* Sección activa: acento rojo */
+.nav__lista a[aria-current="page"] {
+  color: var(--color-rojo);
+  border-bottom-color: var(--color-rojo);
+}
+
+@media (min-width: 62em) {
+  .nav__lista { justify-content: center; }
+  .nav__lista a { padding-inline: 1.4rem; }
+}
+
+
+/* ==========================================================================
+   06. MENÚ MÓVIL
+   ========================================================================== */
+/* El menú ocupa toda la pantalla, pero el panel blanco empieza justo
+   debajo de la cabecera. Esa altura la calcula JavaScript y la guarda en
+   la variable --alto-cabecera. */
+.menu-movil {
+  position: fixed;
+  inset: 0;
+  z-index: 40;                    /* por debajo de la cabecera (z-index: 50) */
+  display: block;
+  padding-top: var(--alto-cabecera, 8rem);
+}
+.menu-movil[hidden] { display: none; }
+
+.menu-movil__fondo {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(17, 17, 17, 0.42);
+}
+
+.menu-movil__panel {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--e-5);
+  max-height: 100%;
+  padding: var(--e-5) var(--margen-lateral) var(--e-6);
+  overflow-y: auto;
+  background-color: var(--color-blanco);
+  border-bottom: var(--linea-fuerte);
+  animation: desplegar-menu 220ms ease both;
+}
+
+@keyframes desplegar-menu {
+  from { opacity: 0; transform: translateY(-12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.menu-movil__titulo {
+  font-size: var(--txt-xs);
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-texto-suave);
+}
+
+/* Dos columnas: el menú ocupa la mitad de alto y siempre queda zona
+   oscura visible debajo para poder cerrarlo pulsando fuera. */
+.menu-movil__lista {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: var(--e-4);
+}
+
+.menu-movil__lista a {
+  display: block;
+  padding-block: 0.65rem;
+  border-bottom: 1px solid var(--color-borde-suave);
+  font-size: var(--txt-sm);
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: color var(--transicion);
+}
+.menu-movil__lista a:hover { color: var(--color-rojo); }
+.menu-movil__lista a[aria-current="page"] { color: var(--color-rojo); }
+
+.menu-movil__secundaria {
+  display: grid;
+  gap: var(--e-3);
+  padding-top: var(--e-4);
+  border-top: var(--linea);
+  font-size: var(--txt-sm);
+  color: var(--color-texto-suave);
+}
+.menu-movil__secundaria a { text-decoration: none; }
+.menu-movil__secundaria a:hover { color: var(--color-negro); }
+
+
+/* ==========================================================================
+   07. PORTADA (noticia principal / carrusel)
+   ========================================================================== */
+.portada {
+  padding-block: var(--e-seccion);
+  border-bottom: var(--linea);
+}
+
+/* Ya no hay tres copias del HTML: hay UNA pieza cuyo contenido cambia.
+   Al cambiar, JavaScript le pone la clase .esta-cambiando durante un
+   instante y el CSS hace el fundido. */
+.portada__pieza {
+  display: grid;
+  gap: var(--e-5);
+  align-content: start;
+  transition: opacity 260ms ease;
+}
+.portada__pieza.esta-cambiando { opacity: 0; }
+
+.portada__texto {
+  display: grid;
+  gap: var(--e-4);
+  justify-items: start;
+  align-content: center;
+}
+
+.portada__titulo {
+  font-size: var(--tit-lg);
+  line-height: 1.02;
+  letter-spacing: -0.02em;
+}
+
+.portada__resumen {
+  max-width: 46ch;
+  font-size: var(--txt-md);
+  line-height: 1.7;
+  color: var(--color-oscuro);
+}
+
+.portada__media {
+  display: grid;
+  gap: var(--e-4);
+}
+
+.portada__figura { background-color: var(--color-gris); }
+.portada__figura img {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+}
+
+/* Controles debajo de la imagen: flecha · indicadores · flecha */
+.portada__controles {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--e-4);
+}
+
+.portada__flecha {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border: 1px solid var(--color-borde);
+  border-radius: var(--radio);
+  background-color: var(--color-blanco);
+  color: var(--color-negro);
+  line-height: 1;
+  transition: background-color var(--transicion), color var(--transicion), border-color var(--transicion);
+}
+.portada__flecha:hover {
+  background-color: var(--color-negro);
+  border-color: var(--color-negro);
+  color: var(--color-blanco);
+}
+
+.portada__puntos {
+  display: flex;
+  align-items: center;
+  gap: var(--e-2);
+}
+
+/* Indicadores redondos: ● ○ ○ */
+.portada__punto {
+  width: 9px;
+  height: 9px;
+  padding: 0;
+  border: 1px solid var(--color-texto-suave);
+  border-radius: 50%;
+  background-color: transparent;
+  transition: background-color var(--transicion), border-color var(--transicion), transform var(--transicion);
+}
+.portada__punto:hover { border-color: var(--color-negro); }
+
+.portada__punto.es-activo {
+  background-color: var(--color-rojo);
+  border-color: var(--color-rojo);
+  transform: scale(1.15);
+}
+
+@media (min-width: 64em) {            /* 1024px */
+  .portada__pieza {
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    gap: clamp(2rem, 4vw, 4rem);
+    align-items: center;
+  }
+  .portada__texto { gap: var(--e-5); }
+
+  /* El alto reservado sobra en las noticias de titular corto:
+     centramos el bloque para que ese aire quede repartido. */
+  .portada__pieza { align-content: center; }
+}
+
+
+/* ==========================================================================
+   08. ÚLTIMAS NOTICIAS
+   ========================================================================== */
+.ultimas { padding-block: var(--e-seccion); }
+
+.ultimas__rejilla {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--e-7) var(--e-5);
+}
+
+.tarjeta__enlace {
+  display: grid;
+  gap: var(--e-3);
+  justify-items: start;
+  text-decoration: none;
+  color: inherit;
+}
+
+.tarjeta__figura {
+  width: 100%;
+  overflow: hidden;
+  background-color: var(--color-gris);
+}
+.tarjeta__figura img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  transition: transform 500ms ease;
+}
+.tarjeta__enlace:hover .tarjeta__figura img { transform: scale(1.04); }
+
+.tarjeta__titulo {
+  font-size: var(--tit-xs);
+  line-height: 1.2;
+  transition: color var(--transicion);
+}
+.tarjeta__enlace:hover .tarjeta__titulo { color: var(--color-rojo); }
+
+.tarjeta__resumen {
+  font-size: 0.9375rem;
+  color: var(--color-texto-suave);
+}
+
+@media (min-width: 37.5em) {          /* 600px → 2 columnas */
+  .ultimas__rejilla { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (min-width: 64em) {            /* 1024px → 4 columnas */
+  .ultimas__rejilla {
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--e-6) var(--e-5);
+  }
+}
+
+
+/* ==========================================================================
+   09. OPINIÓN
+   ========================================================================== */
+.opinion {
+  padding-block: var(--e-seccion);
+  border-block: var(--linea);
+  background-color: var(--color-gris);
+}
+
+.opinion__rejilla {
+  display: grid;
+  gap: var(--e-6);
+  align-items: center;
+}
+
+.opinion__texto {
+  display: grid;
+  gap: var(--e-4);
+  justify-items: start;
+  padding-left: var(--e-5);
+  border-left: 3px solid var(--color-rojo);
+}
+
+.opinion__seccion { color: var(--color-negro); }
+.opinion__barra {
+  margin-inline: var(--e-2);
+  color: var(--color-borde);
+}
+
+.opinion__titulo {
+  font-size: var(--tit-md);
+  font-style: italic;
+  font-weight: 600;
+  line-height: 1.16;
+  max-width: 22ch;
+}
+
+.opinion__resumen {
+  max-width: 52ch;
+  color: var(--color-oscuro);
+}
+
+.opinion__autor {
+  font-size: var(--txt-sm);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.opinion__figura { background-color: var(--color-blanco); }
+.opinion__figura img {
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+}
+
+@media (min-width: 64em) {
+  .opinion__rejilla {
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+    gap: clamp(2rem, 5vw, 4.5rem);
+  }
+  .opinion__titulo { font-size: clamp(2rem, 1.4rem + 2vw, 3rem); }
+}
+
+
+/* ==========================================================================
+   10. BOLETÍN
+   ========================================================================== */
+.boletin { padding-block: var(--e-seccion); }
+
+.boletin__caja {
+  display: grid;
+  gap: var(--e-5);
+  padding: clamp(1.5rem, 3vw, 2.5rem);
+  border: 1px solid var(--color-negro);
+}
+
+.boletin__titulo {
+  font-size: var(--tit-sm);
+  margin-bottom: var(--e-2);
+}
+
+.boletin__descripcion {
+  font-size: 0.9375rem;
+  color: var(--color-texto-suave);
+}
+
+.boletin__forma {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--e-2);
+}
+
+.boletin__campo {
+  flex: 1 1 15rem;
+  min-width: 0;
+  padding: 0.85rem 1rem;
+  border: 1px solid var(--color-borde);
+  border-radius: var(--radio);
+  background-color: var(--color-blanco);
+}
+.boletin__campo:focus-visible { border-color: var(--color-negro); }
+.boletin__campo.tiene-error { border-color: var(--color-rojo); }
+
+.boletin__aviso {
+  min-height: 1.2em;
+  font-size: var(--txt-sm);
+  color: var(--color-texto-suave);
+}
+.boletin__aviso.es-error { color: var(--color-rojo); }
+
+@media (min-width: 48em) {            /* 768px */
+  .boletin__caja {
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+  }
+  /* El campo y el botón se quedan en la misma línea */
+  .boletin__forma { flex-wrap: nowrap; }
+  .boletin__campo { flex: 0 1 18rem; }
+  .boletin__aviso { grid-column: 1 / -1; }
+}
+
+
+/* ==========================================================================
+   11. PIE DE PÁGINA
+   ========================================================================== */
+.pie {
+  background-color: var(--color-negro);
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.pie__rejilla {
+  display: grid;
+  gap: var(--e-6);
+  padding-block: var(--e-seccion);
+}
+
+.pie__signo {
+  display: block;
+  font-family: var(--fuente-titulo);
+  font-size: 2.75rem;
+  line-height: 1;
+  color: var(--color-blanco);
+}
+
+.pie__nombre {
+  margin-top: var(--e-2);
+  font-family: var(--fuente-titulo);
+  font-size: 1.6rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--color-blanco);
+}
+
+.pie__lema {
+  margin-top: var(--e-2);
+  font-size: var(--txt-xs);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.pie__titulo {
+  font-family: var(--fuente-texto);
+  font-size: var(--txt-xs);
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-blanco);
+  margin-bottom: var(--e-3);
+}
+
+.pie__columna li + li { margin-top: var(--e-2); }
+
+.pie__columna a {
+  font-size: 0.875rem;
+  text-decoration: none;
+  transition: color var(--transicion);
+}
+.pie__columna a:hover,
+.pie__columna a:focus-visible { color: var(--color-blanco); }
+
+.pie__base {
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
+  font-size: var(--txt-xs);
+  letter-spacing: 0.06em;
+}
+
+.pie__base-interior {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--e-2);
+  padding-block: var(--e-4);
+}
+
+@media (min-width: 48em) {
+  .pie__rejilla {
+    grid-template-columns: 1.5fr repeat(3, 1fr);
+    gap: var(--e-7);
+  }
+}
+
+
+/* ==========================================================================
+   12. ACCESIBILIDAD Y PREFERENCIAS DEL SISTEMA
+   ========================================================================== */
+
+/* Foco visible y consistente para quien navega con teclado */
+:focus-visible {
+  outline: 2px solid var(--color-rojo);
+  outline-offset: 3px;
+}
+
+/* Respeta a quien pidió menos animación en su sistema operativo */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}

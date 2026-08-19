@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="El Párrafo — periódico digital dominicano. Análisis, reportajes y opinión sobre política, economía, sociedad, cultura e internacional.">
+  <meta name="theme-color" content="#111111">
+  <title>El Párrafo</title>
+
+  <!-- Icono de la pestaña del navegador -->
+  <link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml">
+
+  <!-- Tipografías: Playfair Display (títulos) e Inter (interfaz) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,900;1,500;1,600&display=swap" rel="stylesheet">
+
+  <!-- Hoja de estilos del proyecto -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+  <!-- Enlace de accesibilidad: solo se ve al navegar con el teclado (tecla Tab) -->
+  <a class="salto-contenido" href="#contenido">Saltar al contenido</a>
+
+  <!-- ============================================================
+       CABECERA
+       Tres piezas: barra superior, cabecera principal y navegación.
+       ============================================================ -->
+  <header class="cabecera">
+
+    <!-- Barra superior: fecha, ubicación, enlaces institucionales y redes -->
+    <div class="barra-superior">
+      <div class="contenedor barra-superior__interior">
+        <p class="barra-superior__fecha">
+          <!-- El texto es de respaldo: main.js escribe la fecha real del día -->
+          <time id="fecha-hoy" datetime="2026-08-18">18 de agosto de 2026</time>
+          <span class="barra-superior__lugar">Santo Domingo, RD</span>
+        </p>
+
+        <nav class="barra-superior__enlaces" aria-label="Enlaces institucionales">
+          <a href="#">Quiénes somos</a>
+          <a href="#">Editorial</a>
+          <a href="#">Contáctanos</a>
+        </nav>
+
+        <ul class="redes" aria-label="Redes sociales">
+          <li>
+            <a href="#" aria-label="El Párrafo en Facebook">
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path d="M13.5 21v-8h2.7l.4-3h-3.1V8.1c0-.9.3-1.5 1.5-1.5h1.7V3.9c-.3 0-1.3-.1-2.4-.1-2.4 0-4.1 1.5-4.1 4.2V10H7.5v3h2.7v8h3.3z"/>
+              </svg>
+            </a>
+          </li>
+          <li>
+            <a href="#" aria-label="El Párrafo en X">
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path d="M4 4h3.6l4.3 5.9L17 4h3l-6.4 7.6L20.4 20h-3.6l-4.6-6.3L6.9 20H4l6.8-8.1L4 4z"/>
+              </svg>
+            </a>
+          </li>
+          <li>
+            <a href="#" aria-label="El Párrafo en Instagram">
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path d="M7.8 3h8.4A4.8 4.8 0 0 1 21 7.8v8.4a4.8 4.8 0 0 1-4.8 4.8H7.8A4.8 4.8 0 0 1 3 16.2V7.8A4.8 4.8 0 0 1 7.8 3zm0 1.9A2.9 2.9 0 0 0 4.9 7.8v8.4a2.9 2.9 0 0 0 2.9 2.9h8.4a2.9 2.9 0 0 0 2.9-2.9V7.8a2.9 2.9 0 0 0-2.9-2.9H7.8zM12 7.4a4.6 4.6 0 1 1 0 9.2 4.6 4.6 0 0 1 0-9.2zm0 1.9a2.7 2.7 0 1 0 0 5.4 2.7 2.7 0 0 0 0-5.4zm5-2.4a1.1 1.1 0 1 1 0 2.2 1.1 1.1 0 0 1 0-2.2z"/>
+              </svg>
+            </a>
+          </li>
+          <li>
+            <a href="#" aria-label="El Párrafo en YouTube">
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path d="M21.6 7.2c-.2-1.1-.9-1.8-2-2C17.8 4.8 12 4.8 12 4.8s-5.8 0-7.6.4c-1.1.2-1.8.9-2 2C2 9 2 12 2 12s0 3 .4 4.8c.2 1.1.9 1.8 2 2 1.8.4 7.6.4 7.6.4s5.8 0 7.6-.4c1.1-.2 1.8-.9 2-2 .4-1.8.4-4.8.4-4.8s0-3-.4-4.8zM10.2 15.1V8.9l5.2 3.1-5.2 3.1z"/>
+              </svg>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Cabecera principal: menú · logo · búsqueda -->
+    <div class="cabecera__principal">
+      <div class="contenedor cabecera__rejilla">
+
+        <!-- El mismo botón abre y cierra. El CSS decide qué icono y qué texto
+             se ven según el valor de aria-expanded. -->
+        <button class="boton-icono boton-menu" type="button"
+                aria-expanded="false" aria-controls="menu-movil">
+          <svg class="icono icono--abrir" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+          </svg>
+          <svg class="icono icono--cerrar" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+          </svg>
+          <span class="boton-icono__texto texto--abrir">Menú</span>
+          <span class="boton-icono__texto texto--cerrar">Cerrar</span>
+        </button>
+
+        <a class="logo" href="index.html">
+          <span class="logo__nombre">El Párrafo</span>
+          <span class="logo__lema">Donde las ideas se escriben completas</span>
+        </a>
+
+        <button class="boton-icono boton-buscar" type="button"
+                aria-expanded="false" aria-controls="panel-busqueda">
+          <svg class="icono icono--abrir" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <circle cx="11" cy="11" r="6.5" stroke="currentColor" stroke-width="1.6" fill="none"/>
+            <path d="M16 16l4.5 4.5" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+          </svg>
+          <svg class="icono icono--cerrar" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+          </svg>
+          <span class="boton-icono__texto texto--abrir">Buscar</span>
+          <span class="boton-icono__texto texto--cerrar">Cerrar</span>
+        </button>
+
+      </div>
+    </div>
+
+    <!-- Panel de búsqueda: oculto hasta que se pulsa "Buscar" -->
+    <div class="panel-busqueda" id="panel-busqueda" hidden>
+      <div class="contenedor">
+        <form class="panel-busqueda__forma" role="search" id="forma-busqueda">
+          <label class="visualmente-oculto" for="campo-busqueda">Buscar en El Párrafo</label>
+
+          <div class="panel-busqueda__campo-caja">
+            <input class="panel-busqueda__campo" id="campo-busqueda" name="q" type="text"
+                   placeholder="Buscar noticias..." autocomplete="off">
+            <!-- Solo aparece cuando hay texto escrito -->
+            <button class="panel-busqueda__limpiar" id="boton-limpiar" type="button"
+                    aria-label="Limpiar la búsqueda" hidden>
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+              </svg>
+            </button>
+          </div>
+
+          <button class="boton boton--primario" type="submit">Buscar</button>
+        </form>
+
+        <!-- Zona de resultados. aria-live avisa a los lectores de pantalla
+             cada vez que el contenido cambia. -->
+        <div class="resultados" id="resultados">
+          <p class="resultados__aviso" id="aviso-busqueda" role="status" aria-live="polite"></p>
+          <ul class="resultados__lista" id="lista-resultados"></ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Navegación por secciones (se queda fija arriba al hacer scroll) -->
+    <nav class="nav" id="nav" aria-label="Secciones del periódico">
+      <ul class="contenedor nav__lista">
+        <li><a href="#" aria-current="page">Inicio</a></li>
+        <li><a href="#">Política</a></li>
+        <li><a href="#">Economía</a></li>
+        <li><a href="#">Sociedad</a></li>
+        <li><a href="#">Internacional</a></li>
+        <li><a href="#">Cultura</a></li>
+        <li><a href="#">Opinión</a></li>
+        <li><a href="#">Especiales</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Menú móvil (lo abre y cierra js/main.js).
+       Se despliega justo debajo de la cabecera, que queda siempre visible
+       para que el botón pueda mostrar la X y cerrarlo. -->
+  <div class="menu-movil" id="menu-movil" hidden>
+    <div class="menu-movil__fondo" data-cerrar-menu></div>
+
+    <nav class="menu-movil__panel" aria-label="Menú principal">
+      <p class="menu-movil__titulo">Secciones</p>
+
+      <ul class="menu-movil__lista">
+        <li><a href="#" aria-current="page">Inicio</a></li>
+        <li><a href="#">Política</a></li>
+        <li><a href="#">Economía</a></li>
+        <li><a href="#">Sociedad</a></li>
+        <li><a href="#">Internacional</a></li>
+        <li><a href="#">Cultura</a></li>
+        <li><a href="#">Opinión</a></li>
+        <li><a href="#">Especiales</a></li>
+      </ul>
+
+      <ul class="menu-movil__secundaria">
+        <li><a href="#">Quiénes somos</a></li>
+        <li><a href="#">Editorial</a></li>
+        <li><a href="#">Contáctanos</a></li>
+      </ul>
+    </nav>
+  </div>
+
+  <!-- ============================================================
+       CONTENIDO PRINCIPAL
+       ============================================================ -->
+  <main id="contenido">
+    <h1 class="visualmente-oculto">El Párrafo — portada del día</h1>
+
+    <!-- ---------- PORTADA / NOTICIA PRINCIPAL (carrusel) ----------
+         Aquí hay UNA sola noticia escrita en HTML: es la plantilla.
+         js/main.js guarda las tres noticias en un array y va cambiando
+         los textos y la imagen de estos mismos elementos.
+         Los atributos data-portada-* son las marcas que el JavaScript
+         busca para saber dónde escribir cada dato. -->
+    <section class="portada" aria-roledescription="carrusel" aria-label="Noticias principales">
+      <div class="contenedor">
+        <article class="portada__pieza" id="portada-pieza">
+
+          <div class="portada__texto">
+            <p class="etiqueta etiqueta--roja" data-portada-categoria>Noticia principal</p>
+            <h2 class="portada__titulo" data-portada-titulo>La reforma que necesita el país</h2>
+            <p class="portada__resumen" data-portada-resumen>
+              Un análisis profundo sobre los desafíos estructurales que enfrenta la
+              República Dominicana y las reformas que podrían transformar su futuro.
+            </p>
+            <p class="meta" data-portada-meta>Política · Por Redacción · 8 min de lectura</p>
+            <a class="boton boton--primario" href="#" data-portada-enlace>
+              Leer más <span aria-hidden="true">→</span>
+            </a>
+          </div>
+
+          <div class="portada__media">
+            <figure class="portada__figura">
+              <img src="assets/images/portada-1.svg"
+                   alt="Fachada del Palacio Nacional con su cúpula y la bandera dominicana"
+                   width="1200" height="800" data-portada-imagen>
+            </figure>
+
+            <!-- Controles: flecha · indicadores · flecha -->
+            <div class="portada__controles">
+              <button class="portada__flecha" type="button" data-portada="anterior">
+                <span aria-hidden="true">&#8592;</span>
+                <span class="visualmente-oculto">Noticia anterior</span>
+              </button>
+
+              <div class="portada__puntos" id="portada-puntos">
+                <!-- main.js crea aquí un botón redondo por noticia -->
+              </div>
+
+              <button class="portada__flecha" type="button" data-portada="siguiente">
+                <span aria-hidden="true">&#8594;</span>
+                <span class="visualmente-oculto">Noticia siguiente</span>
+              </button>
+            </div>
+          </div>
+
+        </article>
+      </div>
+    </section>
+
+    <!-- ---------- ÚLTIMAS NOTICIAS ---------- -->
+    <section class="ultimas" aria-labelledby="titulo-ultimas">
+      <div class="contenedor">
+        <header class="seccion-cabeza">
+          <h2 class="seccion-cabeza__titulo" id="titulo-ultimas">Últimas noticias</h2>
+          <a class="enlace-leer" href="#">Ver todas <span aria-hidden="true">→</span></a>
+        </header>
+
+        <div class="ultimas__rejilla">
+
+          <article class="tarjeta" data-articulo>
+            <a class="tarjeta__enlace" href="#" data-enlace>
+              <figure class="tarjeta__figura">
+                <img src="assets/images/noticia-sociedad.svg"
+                     alt="Multitud de jóvenes caminando por una avenida de la ciudad"
+                     width="1200" height="800" loading="lazy">
+              </figure>
+              <p class="etiqueta etiqueta--roja" data-categoria>Sociedad</p>
+              <h3 class="tarjeta__titulo" data-titulo>¿Hacia dónde va la juventud dominicana?</h3>
+              <p class="tarjeta__resumen" data-resumen>
+                Educación, empleo y oportunidades: las voces de una generación que
+                quiere ser escuchada.
+              </p>
+              <p class="meta">Hace 2 horas · Por Ana Cordero</p>
+              <span class="enlace-leer">Leer más <span aria-hidden="true">→</span></span>
+            </a>
+          </article>
+
+          <article class="tarjeta" data-articulo>
+            <a class="tarjeta__enlace" href="#" data-enlace>
+              <figure class="tarjeta__figura">
+                <img src="assets/images/noticia-economia.svg"
+                     alt="Contenedores apilados en el puerto junto a una grúa"
+                     width="1200" height="800" loading="lazy">
+              </figure>
+              <p class="etiqueta etiqueta--roja" data-categoria>Economía</p>
+              <h3 class="tarjeta__titulo" data-titulo>Crecimiento económico se desacelera en el primer trimestre</h3>
+              <p class="tarjeta__resumen" data-resumen>
+                El consumo interno pierde fuerza y las exportaciones sostienen las
+                cifras del período.
+              </p>
+              <p class="meta">Hace 4 horas · Por Miguel Ureña</p>
+              <span class="enlace-leer">Leer más <span aria-hidden="true">→</span></span>
+            </a>
+          </article>
+
+          <article class="tarjeta" data-articulo>
+            <a class="tarjeta__enlace" href="#" data-enlace>
+              <figure class="tarjeta__figura">
+                <img src="assets/images/noticia-internacional.svg"
+                     alt="Salón de una asamblea internacional con banderas y podio"
+                     width="1200" height="800" loading="lazy">
+              </figure>
+              <p class="etiqueta etiqueta--roja" data-categoria>Internacional</p>
+              <h3 class="tarjeta__titulo" data-titulo>Tensiones globales marcan la agenda en la ONU</h3>
+              <p class="tarjeta__resumen" data-resumen>
+                Las delegaciones llegan con posiciones distantes y una lista de temas
+                que nadie quiere aplazar.
+              </p>
+              <p class="meta">Hace 6 horas · Por Redacción</p>
+              <span class="enlace-leer">Leer más <span aria-hidden="true">→</span></span>
+            </a>
+          </article>
+
+          <article class="tarjeta" data-articulo>
+            <a class="tarjeta__enlace" href="#" data-enlace>
+              <figure class="tarjeta__figura">
+                <img src="assets/images/noticia-cultura.svg"
+                     alt="Estantería con libros de distintos tamaños y colores"
+                     width="1200" height="800" loading="lazy">
+              </figure>
+              <p class="etiqueta etiqueta--roja" data-categoria>Cultura</p>
+              <h3 class="tarjeta__titulo" data-titulo>Los libros que están moldeando nuevas mentes</h3>
+              <p class="tarjeta__resumen" data-resumen>
+                Librerías independientes y clubes de lectura cuentan qué se lee hoy en
+                el país y por qué.
+              </p>
+              <p class="meta">Ayer · Por Paola Then</p>
+              <span class="enlace-leer">Leer más <span aria-hidden="true">→</span></span>
+            </a>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ---------- OPINIÓN ---------- -->
+    <section class="opinion" aria-labelledby="titulo-opinion">
+      <div class="contenedor opinion__rejilla">
+        <div class="opinion__texto" data-articulo>
+          <p class="etiqueta">
+            <span class="opinion__seccion">Entre líneas</span>
+            <span class="opinion__barra" aria-hidden="true">|</span>
+            <span class="etiqueta--roja" data-categoria>Opinión</span>
+          </p>
+
+          <h2 class="opinion__titulo" id="titulo-opinion" data-titulo>
+            No se trata de izquierda o derecha, se trata de hacer lo correcto
+          </h2>
+
+          <p class="opinion__resumen" data-resumen>
+            Discutimos etiquetas mientras las decisiones concretas —el presupuesto de
+            una escuela, la ruta de un autobús, la firma de un contrato— pasan sin que
+            nadie las mire de cerca.
+          </p>
+
+          <p class="opinion__autor">Por Daniel M.</p>
+          <a class="enlace-leer" href="#" data-enlace>Leer la columna <span aria-hidden="true">→</span></a>
+        </div>
+
+        <figure class="opinion__figura">
+          <img src="assets/images/opinion-pluma.svg"
+               alt="Pluma estilográfica apoyada sobre un texto escrito a mano"
+               width="1200" height="800" loading="lazy">
+        </figure>
+      </div>
+    </section>
+
+    <!-- ---------- BOLETÍN ---------- -->
+    <section class="boletin" aria-labelledby="titulo-boletin">
+      <div class="contenedor">
+        <div class="boletin__caja">
+          <div class="boletin__texto">
+            <h2 class="boletin__titulo" id="titulo-boletin">Suscríbete al boletín</h2>
+            <p class="boletin__descripcion">
+              Un resumen diario con lo esencial, en tu correo antes de las 7:00 a. m.
+            </p>
+          </div>
+
+          <form class="boletin__forma" id="forma-boletin" novalidate>
+            <label class="visualmente-oculto" for="campo-correo">Tu correo electrónico</label>
+            <input class="boletin__campo" id="campo-correo" name="correo" type="email"
+                   placeholder="tucorreo@ejemplo.com" autocomplete="email">
+            <button class="boton boton--primario" type="submit">Suscribirme</button>
+          </form>
+
+          <p class="boletin__aviso" id="aviso-boletin" role="status"></p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============================================================
+       PIE DE PÁGINA
+       ============================================================ -->
+  <footer class="pie">
+    <div class="contenedor pie__rejilla">
+
+      <div class="pie__marca">
+        <span class="pie__signo" aria-hidden="true">¶</span>
+        <p class="pie__nombre">El Párrafo</p>
+        <p class="pie__lema">Donde las ideas se escriben completas</p>
+      </div>
+
+      <nav class="pie__columna" aria-label="Secciones">
+        <h2 class="pie__titulo">Secciones</h2>
+        <ul>
+          <li><a href="#">Inicio</a></li>
+          <li><a href="#">Política</a></li>
+          <li><a href="#">Economía</a></li>
+          <li><a href="#">Internacional</a></li>
+        </ul>
+      </nav>
+
+      <nav class="pie__columna" aria-label="Más secciones">
+        <h2 class="pie__titulo">Más</h2>
+        <ul>
+          <li><a href="#">Sociedad</a></li>
+          <li><a href="#">Cultura</a></li>
+          <li><a href="#">Opinión</a></li>
+          <li><a href="#">Especiales</a></li>
+        </ul>
+      </nav>
+
+      <nav class="pie__columna" aria-label="El Párrafo">
+        <h2 class="pie__titulo">El Párrafo</h2>
+        <ul>
+          <li><a href="#">Quiénes somos</a></li>
+          <li><a href="#">Contacto</a></li>
+          <li><a href="#">Términos de uso</a></li>
+          <li><a href="#">Política de privacidad</a></li>
+        </ul>
+      </nav>
+
+    </div>
+
+    <div class="pie__base">
+      <div class="contenedor pie__base-interior">
+        <p>© El Párrafo. Todos los derechos reservados.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JavaScript al final y con defer: la página se ve antes de ejecutarlo -->
+  <script src="js/main.js" defer></script>
+</body>
+</html>

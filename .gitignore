@@ -1,0 +1,53 @@
+# ==========================================================================
+# EL PÁRRAFO — .gitignore
+# Lista de archivos que Git NO debe guardar ni subir a GitHub.
+# Hoy casi nada de esto existe todavía: está preparado para las fases
+# siguientes (Node.js, React, Next.js, Supabase).
+# ==========================================================================
+
+# --- Secretos: lo más importante de este archivo ---
+# Un archivo .env guarda contraseñas y claves de API. Si sube a GitHub,
+# queda publicado para siempre en el historial, aunque después lo borres.
+.env
+.env.*
+!.env.example          # este SÍ se sube: es la plantilla sin valores reales
+
+# --- Dependencias de Node.js ---
+# Miles de archivos que se reinstalan con "npm install". Nunca se suben.
+node_modules/
+.pnpm-store/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# --- Carpetas generadas al compilar (React / Next.js) ---
+dist/
+build/
+out/
+.next/
+.cache/
+*.tsbuildinfo
+
+# --- Servicios ---
+.vercel
+.netlify
+.supabase/
+
+# --- Archivos del sistema operativo ---
+.DS_Store               # macOS
+Thumbs.db               # Windows
+desktop.ini             # Windows
+ehthumbs.db
+
+# --- Configuración personal del editor ---
+.vscode/*
+!.vscode/extensions.json
+.idea/
+*.swp
+*~
+
+# --- Registros y temporales ---
+*.log
+tmp/
+temp/
