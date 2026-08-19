@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" width="1200" height="800" role="img" aria-label="Periódico doblado junto a una taza de café">
+  <title>Periódico doblado junto a una taza de café</title>
+  <rect width="1200" height="800" fill="#E8E7E4"/>
+  <rect x="0" y="0" width="1200" height="800" fill="#F2F1EE"/>
+  <rect x="0" y="560" width="1200" height="240" fill="#4A4A4A" fill-opacity=".18"/>
+  <rect x="120" y="240" width="520" height="330" fill="#F2F1EE" stroke="#1B1B1B" stroke-opacity=".25" stroke-width="4" transform="rotate(-4 380 400)"/>
+  <rect x="160" y="280" width="300" height="26" fill="#1B1B1B" fill-opacity=".8" transform="rotate(-4 380 400)"/>
+  <rect x="160" y="336" width="440" height="11" fill="#1B1B1B" fill-opacity=".16" transform="rotate(-4 380 400)"/>
+  <rect x="160" y="374" width="380" height="11" fill="#1B1B1B" fill-opacity=".16" transform="rotate(-4 380 400)"/>
+  <rect x="160" y="412" width="440" height="11" fill="#1B1B1B" fill-opacity=".16" transform="rotate(-4 380 400)"/>
+  <rect x="160" y="450" width="300" height="11" fill="#1B1B1B" fill-opacity=".16" transform="rotate(-4 380 400)"/>
+  <rect x="160" y="488" width="420" height="11" fill="#1B1B1B" fill-opacity=".16" transform="rotate(-4 380 400)"/>
+  <rect x="160" y="526" width="340" height="11" fill="#1B1B1B" fill-opacity=".16" transform="rotate(-4 380 400)"/>
+  <rect x="160" y="330" width="120" height="90" fill="#1B1B1B" fill-opacity=".28" transform="rotate(-4 380 400)"/>
+  <path d="M700 360 h280 v120 a140 140 0 0 1 -280 0 Z" fill="#1B1B1B" fill-opacity=".85"/>
+  <path d="M980 390 q90 0 90 60 t-90 60" fill="none" stroke="#1B1B1B" stroke-opacity=".7" stroke-width="24"/>
+  <ellipse cx="840" cy="360" rx="140" ry="30" fill="#C8102E" fill-opacity=".85"/>
+  <ellipse cx="840" cy="360" rx="140" ry="30" fill="none" stroke="#1B1B1B" stroke-opacity=".5" stroke-width="6"/>
+  <ellipse cx="840" cy="620" rx="180" ry="26" fill="#1B1B1B" fill-opacity=".25"/>
+  <path d="M790 300 q22 -46 0 -92 q-22 -46 0 -92" fill="none" stroke="#1B1B1B" stroke-opacity=".22" stroke-width="9" stroke-linecap="round"/>
+  <path d="M850 300 q22 -46 0 -92 q-22 -46 0 -92" fill="none" stroke="#1B1B1B" stroke-opacity=".22" stroke-width="9" stroke-linecap="round"/>
+  <path d="M910 300 q22 -46 0 -92 q-22 -46 0 -92" fill="none" stroke="#1B1B1B" stroke-opacity=".22" stroke-width="9" stroke-linecap="round"/>
+
+  <rect x="24" y="728" width="431" height="44" fill="#F2F1EE" fill-opacity=".88"/>
+  <text x="44" y="758" font-family="Inter, Helvetica, Arial, sans-serif" font-size="19" letter-spacing="4"
+        fill="#1B1B1B" fill-opacity=".55">IMAGEN DE MUESTRA · COLUMNA</text>
+</svg>

@@ -6,7 +6,7 @@ Periódico digital dominicano construido desde cero como proyecto de aprendizaje
 Esta es la versión estática: HTML, CSS y JavaScript sin frameworks, sin backend
 y sin base de datos.
 
-**Estado:** en desarrollo · Fase 3 de 8 (Git, GitHub y deploy)
+**Estado:** en desarrollo · Fase 4 (arquitectura de JavaScript y contenido)
 
 **Autor:** _(pon aquí tu nombre)_
 
@@ -31,8 +31,10 @@ y no publica información verificada.
 - Buscador que filtra en vivo los artículos de la página. Ignora mayúsculas y
   tildes: escribir `economia` encuentra "Economía".
 - Menú móvil desplegable, con el mismo botón para abrir y cerrar.
-- Cuatro últimas noticias, sección de opinión y formulario de boletín con
-  validación de correo.
+- Últimas noticias con filtros por sección, En profundidad, Lo más leído,
+  columnistas y formulario de boletín con validación.
+- Páginas interiores: artículo completo, listado por sección y perfil de firma
+  con botón de seguir.
 - Diseño adaptable comprobado de 320 px a 1920 px, sin desbordes horizontales.
 - Accesibilidad básica: navegación completa por teclado, foco visible, textos
   alternativos, `aria-*` en los controles y respeto a `prefers-reduced-motion`.
@@ -54,29 +56,63 @@ navegador.
 
 ```
 EL-PARRAFO/
-├── index.html          Página completa
-├── README.md           Este archivo
-├── .gitignore          Archivos que Git no debe guardar
+├── index.html                    Portada
+├── articulo.html                 Una noticia    (?slug=...)
+├── seccion.html                  Una sección    (?categoria=...)
+├── autor.html                    Una firma      (?autor=...)
+├── README.md                     Este archivo
+├── .gitignore                    Archivos que Git no debe guardar
+├── datos/
+│   ├── articulos.json            Los artículos, con su texto completo
+│   └── autores.json              Ficha de cada firma
 ├── css/
-│   └── style.css       Estilos, organizados en 12 secciones numeradas
+│   └── style.css                 Estilos, en 16 secciones numeradas
 ├── js/
-│   └── main.js         Menú, búsqueda, carrusel, boletín y fecha
+│   ├── main.js                   Arranque de la portada
+│   ├── comun.js                  Lo que toda página necesita
+│   ├── paginas/
+│   │   ├── articulo.js           Página de una noticia
+│   │   ├── seccion.js            Listado de una sección
+│   │   └── autor.js              Perfil de una firma
+│   ├── config.js                 Todos los ajustes en un solo sitio
+│   ├── utiles.js                 Funciones compartidas
+│   ├── interfaz.js               Fecha, barra fija, progreso, revelado
+│   ├── datos/
+│   │   └── cargarArticulos.js    fetch + consultas sobre la lista
+│   └── componentes/
+│       ├── tarjeta.js            Fábricas de HTML por pieza
+│       ├── portada.js            Carrusel
+│       ├── ultimas.js            Rejilla + filtros por sección
+│       ├── bloques.js            En profundidad, más leído, opinión
+│       ├── busqueda.js           Buscador
+│       ├── menu.js               Menú móvil
+│       └── boletin.js            Formulario
 └── assets/
-    ├── images/         Ilustraciones de muestra (SVG)
-    └── icons/          Favicon y marca ¶
+    ├── images/                   16 ilustraciones (SVG)
+    └── icons/                    Favicon y marca ¶
 ```
+
+## Cómo añadir una noticia
+
+Abre `datos/articulos.json`, copia un bloque `{ ... }` completo, pégalo y
+edítalo. No hay que tocar el HTML: la portada, los filtros y el buscador la
+recogen solos.
 
 ## Cómo ejecutarlo localmente
 
-**Opción rápida:** descarga el proyecto y haz doble clic en `index.html`.
-
-**Opción recomendada** (recarga automática al guardar):
+> **Ya no funciona abriendo `index.html` con doble clic.** El proyecto usa
+> módulos de JavaScript (`import`/`export`) y carga los artículos con
+> `fetch()`. Por seguridad, el navegador bloquea ambas cosas cuando la
+> página se abre desde el disco (`file://`). Hay que servir la carpeta.
 
 1. Abre la carpeta en Visual Studio Code.
-2. Instala la extensión **Live Server**.
+2. Instala la extensión **Live Server** (de Ritwick Dey).
 3. Clic derecho sobre `index.html` → *Open with Live Server*.
 
-No hace falta instalar Node.js ni ejecutar ningún comando de compilación.
+Se abrirá en `http://127.0.0.1:5500` y todo funcionará. En Internet no hay
+problema: Vercel ya sirve el sitio por HTTP.
+
+No hace falta instalar Node.js ni compilar nada.
 
 ## Dónde modificar cada cosa
 
@@ -87,9 +123,11 @@ No hace falta instalar Node.js ni ejecutar ningún comando de compilación.
 | Tamaño de títulos | Variables `--tit-xs` … `--tit-lg` |
 | Espacio entre secciones | Variable `--e-seccion` |
 | Ancho máximo | Variable `--ancho-contenedor` |
-| Noticias del carrusel | `js/main.js`, array `NOTICIAS_PORTADA` |
-| Velocidad del carrusel | `js/main.js`, objeto `CONFIG` |
-| Resto de textos | `index.html` |
+| Noticias (todas) | `datos/articulos.json` |
+| Cuáles salen en el carrusel | Campo `"portada": true` en el JSON |
+| Cuántas piezas por bloque | `js/config.js` |
+| Velocidad del carrusel y animaciones | `js/config.js` |
+| Textos fijos (secciones, pie) | `index.html` |
 | Imágenes | Sustituye los archivos de `assets/images/` |
 
 Las imágenes son ilustraciones SVG de muestra y llevan la marca
@@ -104,6 +142,9 @@ Completado:
 - **Fase 1** — Maquetación editorial, diseño responsive e identidad visual.
 - **Fase 2** — Interactividad con JavaScript: menú, búsqueda y carrusel.
 - **Fase 3** — Control de versiones con Git, repositorio en GitHub y publicación.
+- **Fase 4** — Datos separados de la presentación, renderizado dinámico,
+  filtros por sección, módulos con `import`/`export`, `fetch` + `async/await`,
+  estados de carga y error, sistema de movimiento y páginas interiores.
 
 El proyecto es hoy una sola página estática. No guarda datos, no tiene usuarios
 y no se conecta a ningún servidor.
@@ -113,7 +154,6 @@ y no se conecta a ningún servidor.
 Ninguna de estas funcionalidades está implementada todavía. Es el plan de
 aprendizaje del proyecto, en orden:
 
-- [ ] **Fase 4** — Páginas interiores y datos separados del HTML.
 - [ ] **Fase 5** — Migración a React: componentes reutilizables y estado.
 - [ ] **Fase 6** — Next.js: rutas, renderizado en servidor y SEO.
 - [ ] **Fase 7** — PostgreSQL con Supabase: artículos reales en base de datos.

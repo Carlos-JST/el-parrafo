@@ -9,7 +9,7 @@
    05. Cabecera (barra superior, logo, búsqueda, navegación)
    06. Menú móvil
    07. Portada (noticia principal / carrusel)
-   08. Últimas noticias
+   08. Últimas noticias (filtros, rejilla, lo más leído, estados)
    09. Opinión
    10. Boletín
    11. Pie de página
@@ -264,6 +264,11 @@ button { cursor: pointer; }
 
 .boton--primario:hover,
 .boton--primario:focus-visible { border-color: var(--color-rojo); }
+
+/* display: inline-flex le gana al hidden del navegador por especificidad.
+   Sin esta línea, un botón con el atributo hidden seguiría viéndose.
+   Es la misma trampa que con .panel-busqueda[hidden]. */
+.boton[hidden] { display: none; }
 
 .boton--secundario {
   --relleno: var(--color-negro);
@@ -894,9 +899,69 @@ button { cursor: pointer; }
 
 
 /* ==========================================================================
-   08. ÚLTIMAS NOTICIAS
+   08. ÚLTIMAS NOTICIAS: filtros, rejilla, lo más leído y estados
    ========================================================================== */
 .ultimas { padding-block: var(--e-seccion); }
+
+.seccion-cabeza__conteo {
+  font-size: var(--txt-xs);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-texto-suave);
+  white-space: nowrap;
+}
+
+/* --- Filtros por sección --- */
+.filtros {
+  display: flex;
+  gap: var(--e-2);
+  margin-bottom: var(--e-6);
+  padding-bottom: var(--e-2);
+  overflow-x: auto;              /* en móvil se deslizan en horizontal */
+  scrollbar-width: none;
+}
+.filtros::-webkit-scrollbar { display: none; }
+
+.filtro {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--e-2);
+  padding: 0.5rem 0.95rem;
+  border: 1px solid var(--color-borde);
+  border-radius: 999px;
+  background-color: var(--color-blanco);
+  color: var(--color-oscuro);
+  font-size: var(--txt-xs);
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transition: background-color var(--transicion), border-color var(--transicion),
+              color var(--transicion);
+}
+.filtro:hover {
+  border-color: var(--color-negro);
+  color: var(--color-negro);
+}
+
+.filtro.es-activo {
+  background-color: var(--color-negro);
+  border-color: var(--color-negro);
+  color: var(--color-blanco);
+}
+
+.filtro__cuenta {
+  font-size: 0.625rem;
+  letter-spacing: 0;
+  color: var(--color-texto-suave);
+}
+.filtro.es-activo .filtro__cuenta { color: rgba(255, 255, 255, 0.7); }
+
+/* --- Dos columnas: noticias + lo más leído --- */
+.ultimas__columnas {
+  display: grid;
+  gap: var(--e-8);
+}
 
 .ultimas__rejilla {
   display: grid;
@@ -908,6 +973,7 @@ button { cursor: pointer; }
   display: grid;
   gap: var(--e-3);
   justify-items: start;
+  align-content: start;
   text-decoration: none;
   color: inherit;
 }
@@ -944,15 +1010,118 @@ button { cursor: pointer; }
   color: var(--color-texto-suave);
 }
 
-@media (min-width: 37.5em) {          /* 600px → 2 columnas */
+.ultimas__mas {
+  display: flex;
+  justify-content: center;
+  margin-top: var(--e-7);
+}
+.ultimas__mas:has(button[hidden]) { margin-top: 0; }
+
+/* --- Lo más leído --- */
+.mas-leido {
+  align-self: start;
+  padding-top: var(--e-4);
+  border-top: var(--linea-fuerte);
+}
+
+.mas-leido__titulo {
+  font-family: var(--fuente-texto);
+  font-size: var(--txt-sm);
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  margin-bottom: var(--e-4);
+}
+
+.mas-leido__fila {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: var(--e-3);
+  padding-block: var(--e-3);
+  border-top: var(--linea);
+}
+.mas-leido__fila:first-child { border-top: 0; padding-top: 0; }
+
+.mas-leido__numero {
+  font-family: var(--fuente-titulo);
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--color-rojo);
+}
+
+.mas-leido__enlace {
+  display: grid;
+  gap: var(--e-1);
+  text-decoration: none;
+  color: inherit;
+}
+
+.mas-leido__texto {
+  font-family: var(--fuente-titulo);
+  font-size: 1.02rem;
+  font-weight: 600;
+  line-height: 1.25;
+  transition: color var(--transicion);
+}
+.mas-leido__enlace:hover .mas-leido__texto { color: var(--color-rojo); }
+
+/* --- Estados: cargando, vacío y error --- */
+.estado {
+  margin-top: var(--e-5);
+  font-size: var(--txt-sm);
+  color: var(--color-texto-suave);
+}
+.estado:empty { margin-top: 0; }
+
+.estado--error {
+  display: grid;
+  gap: var(--e-4);
+  justify-items: start;
+  padding: var(--e-5);
+  border: 1px solid var(--color-rojo);
+  color: var(--color-negro);
+}
+
+/* Tarjetas grises mientras cargan los datos: ocupan el mismo sitio que
+   las reales, así la página no pega un salto cuando llegan las noticias. */
+.fantasma { display: grid; gap: var(--e-3); }
+
+.fantasma__figura {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  background-color: var(--color-gris);
+}
+
+.fantasma__linea {
+  height: 12px;
+  width: 100%;
+  background-color: var(--color-gris);
+}
+.fantasma__linea--corta { width: 30%; }
+.fantasma__linea--media { width: 60%; }
+
+.fantasma__figura,
+.fantasma__linea { animation: latido 1.4s ease-in-out infinite; }
+
+@keyframes latido {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.5; }
+}
+
+@media (min-width: 37.5em) {          /* 600px → 2 columnas de tarjetas */
   .ultimas__rejilla { grid-template-columns: repeat(2, 1fr); }
 }
 
-@media (min-width: 64em) {            /* 1024px → 4 columnas */
-  .ultimas__rejilla {
-    grid-template-columns: repeat(4, 1fr);
-    gap: var(--e-6) var(--e-5);
+@media (min-width: 64em) {            /* 1024px → rejilla + barra lateral */
+  .ultimas__columnas {
+    grid-template-columns: minmax(0, 1fr) minmax(14rem, 18rem);
+    gap: var(--e-8);
   }
+}
+
+@media (min-width: 80em) {            /* 1280px → 3 columnas de tarjetas */
+  .ultimas__rejilla { grid-template-columns: repeat(3, 1fr); }
 }
 
 
@@ -986,6 +1155,7 @@ button { cursor: pointer; }
 }
 
 .opinion__titulo {
+  min-height: 1.16em;
   font-size: var(--tit-md);
   font-style: italic;
   font-weight: 600;

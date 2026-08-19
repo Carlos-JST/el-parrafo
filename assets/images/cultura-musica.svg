@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" width="1200" height="800" role="img" aria-label="Partitura con notas musicales y ecualizador">
+  <title>Partitura con notas musicales y ecualizador</title>
+  <rect width="1200" height="800" fill="#E8E7E4"/>
+  <rect x="0" y="0" width="1200" height="800" fill="#F2F1EE"/>
+  <rect x="120" y="240" width="960" height="4" fill="#1B1B1B" fill-opacity=".22"/>
+  <rect x="120" y="286" width="960" height="4" fill="#1B1B1B" fill-opacity=".22"/>
+  <rect x="120" y="332" width="960" height="4" fill="#1B1B1B" fill-opacity=".22"/>
+  <rect x="120" y="378" width="960" height="4" fill="#1B1B1B" fill-opacity=".22"/>
+  <rect x="120" y="424" width="960" height="4" fill="#1B1B1B" fill-opacity=".22"/>
+  <ellipse cx="190" cy="332" rx="30" ry="21" fill="#1B1B1B" fill-opacity=".85" transform="rotate(-18 190 332)"/>
+  <rect x="216" y="222" width="8" height="112" fill="#1B1B1B" fill-opacity=".85"/>
+  <ellipse cx="275" cy="240" rx="30" ry="21" fill="#1B1B1B" fill-opacity=".85" transform="rotate(-18 275 240)"/>
+  <rect x="301" y="130" width="8" height="112" fill="#1B1B1B" fill-opacity=".85"/>
+  <ellipse cx="392" cy="332" rx="30" ry="21" fill="#1B1B1B" fill-opacity=".85" transform="rotate(-18 392 332)"/>
+  <rect x="418" y="222" width="8" height="112" fill="#1B1B1B" fill-opacity=".85"/>
+  <ellipse cx="499" cy="378" rx="30" ry="21" fill="#1B1B1B" fill-opacity=".85" transform="rotate(-18 499 378)"/>
+  <rect x="525" y="268" width="8" height="112" fill="#1B1B1B" fill-opacity=".85"/>
+  <ellipse cx="612" cy="332" rx="30" ry="21" fill="#C8102E" fill-opacity=".85" transform="rotate(-18 612 332)"/>
+  <rect x="638" y="222" width="8" height="112" fill="#C8102E" fill-opacity=".85"/>
+  <ellipse cx="700" cy="286" rx="30" ry="21" fill="#1B1B1B" fill-opacity=".85" transform="rotate(-18 700 286)"/>
+  <rect x="726" y="176" width="8" height="112" fill="#1B1B1B" fill-opacity=".85"/>
+  <ellipse cx="797" cy="378" rx="30" ry="21" fill="#1B1B1B" fill-opacity=".85" transform="rotate(-18 797 378)"/>
+  <rect x="823" y="268" width="8" height="112" fill="#1B1B1B" fill-opacity=".85"/>
+  <ellipse cx="877" cy="286" rx="30" ry="21" fill="#1B1B1B" fill-opacity=".85" transform="rotate(-18 877 286)"/>
+  <rect x="903" y="176" width="8" height="112" fill="#1B1B1B" fill-opacity=".85"/>
+  <ellipse cx="996" cy="378" rx="30" ry="21" fill="#1B1B1B" fill-opacity=".85" transform="rotate(-18 996 378)"/>
+  <rect x="1022" y="268" width="8" height="112" fill="#1B1B1B" fill-opacity=".85"/>
+  <rect x="160" y="633" width="16" height="67" fill="#1B1B1B" fill-opacity="0.29"/>
+  <rect x="190" y="533" width="16" height="167" fill="#1B1B1B" fill-opacity="0.44"/>
+  <rect x="220" y="529" width="16" height="171" fill="#1B1B1B" fill-opacity="0.53"/>
+  <rect x="250" y="550" width="16" height="150" fill="#1B1B1B" fill-opacity="0.41"/>
+  <rect x="280" y="646" width="16" height="54" fill="#1B1B1B" fill-opacity="0.34"/>
+  <rect x="310" y="651" width="16" height="49" fill="#1B1B1B" fill-opacity="0.52"/>
+  <rect x="340" y="616" width="16" height="84" fill="#1B1B1B" fill-opacity="0.53"/>
+  <rect x="370" y="568" width="16" height="132" fill="#1B1B1B" fill-opacity="0.50"/>
+  <rect x="400" y="566" width="16" height="134" fill="#1B1B1B" fill-opacity="0.69"/>
+  <rect x="430" y="588" width="16" height="112" fill="#1B1B1B" fill-opacity="0.55"/>
+  <rect x="460" y="580" width="16" height="120" fill="#1B1B1B" fill-opacity="0.51"/>
+  <rect x="490" y="539" width="16" height="161" fill="#1B1B1B" fill-opacity="0.33"/>
+  <rect x="520" y="537" width="16" height="163" fill="#1B1B1B" fill-opacity="0.52"/>
+  <rect x="550" y="546" width="16" height="154" fill="#1B1B1B" fill-opacity="0.55"/>
+  <rect x="580" y="619" width="16" height="81" fill="#1B1B1B" fill-opacity="0.33"/>
+  <rect x="610" y="615" width="16" height="85" fill="#1B1B1B" fill-opacity="0.49"/>
+  <rect x="640" y="527" width="16" height="173" fill="#1B1B1B" fill-opacity="0.34"/>
+  <rect x="670" y="631" width="16" height="69" fill="#1B1B1B" fill-opacity="0.29"/>
+  <rect x="700" y="551" width="16" height="149" fill="#1B1B1B" fill-opacity="0.27"/>
+  <rect x="730" y="590" width="16" height="110" fill="#1B1B1B" fill-opacity="0.67"/>
+  <rect x="760" y="589" width="16" height="111" fill="#1B1B1B" fill-opacity="0.62"/>
+  <rect x="790" y="576" width="16" height="124" fill="#1B1B1B" fill-opacity="0.30"/>
+  <rect x="820" y="587" width="16" height="113" fill="#1B1B1B" fill-opacity="0.49"/>
+  <rect x="850" y="544" width="16" height="156" fill="#1B1B1B" fill-opacity="0.50"/>
+  <rect x="880" y="594" width="16" height="106" fill="#1B1B1B" fill-opacity="0.32"/>
+  <rect x="910" y="630" width="16" height="70" fill="#1B1B1B" fill-opacity="0.57"/>
+  <rect x="940" y="534" width="16" height="166" fill="#1B1B1B" fill-opacity="0.36"/>
+  <rect x="970" y="521" width="16" height="179" fill="#1B1B1B" fill-opacity="0.31"/>
+  <rect x="1000" y="635" width="16" height="65" fill="#1B1B1B" fill-opacity="0.68"/>
+  <rect x="1030" y="618" width="16" height="82" fill="#1B1B1B" fill-opacity="0.45"/>
+  <rect x="120" y="700" width="960" height="8" fill="#1B1B1B" fill-opacity=".6"/>
+
+  <rect x="24" y="728" width="417" height="44" fill="#F2F1EE" fill-opacity=".88"/>
+  <text x="44" y="758" font-family="Inter, Helvetica, Arial, sans-serif" font-size="19" letter-spacing="4"
+        fill="#1B1B1B" fill-opacity=".55">IMAGEN DE MUESTRA · MÚSICA</text>
+</svg>
