@@ -13,9 +13,10 @@
     5. iniciarBusqueda()      buscador sobre los artículos de la página
     6. iniciarPortada()       carrusel de la noticia principal
     7. iniciarBoletin()       valida el correo
-    8. iniciarNavFija()       sombra de la navegación al hacer scroll
+    8. iniciarNavFija()       barra fija: sombra, marca ¶ y progreso de lectura
     9. mostrarFechaDeHoy()    fecha real en la barra superior
-   10. Arranque               se llama a todo lo anterior
+   10. iniciarRevelado()      las secciones entran al llegar a ellas
+   11. Arranque               se llama a todo lo anterior
    ========================================================================== */
 
 (function () {
@@ -27,7 +28,8 @@
   const CONFIG = {
     rotacionAutomatica: true,   // false = el carrusel solo cambia si tú pulsas
     segundosPorNoticia: 9,      // cada cuánto cambia la noticia principal
-    milisegundosTransicion: 260 // cuánto dura el fundido entre noticias
+    milisegundosTransicion: 340, // cuánto dura la transición entre noticias
+    porcionVisibleParaRevelar: 0.15  // cuánto de un bloque debe verse para que aparezca
   };
 
 
@@ -317,6 +319,13 @@
     function abrir() {
       panel.hidden = false;
       boton.setAttribute('aria-expanded', 'true');
+
+      /* El panel vive encima de la navegación. Si la página está bajada,
+         la cabecera está fija con su parte alta fuera de la pantalla y el
+         panel no se vería: subimos primero al principio. */
+      if (window.scrollY > 0) window.scrollTo({ top: 0, behavior: 'smooth' });
+
+      document.dispatchEvent(new Event('cabecera:cambio'));
       campo.focus();
     }
 
@@ -324,6 +333,7 @@
       if (!estaAbierto()) return;
       panel.hidden = true;
       boton.setAttribute('aria-expanded', 'false');
+      document.dispatchEvent(new Event('cabecera:cambio'));
       if (devolverFoco) boton.focus();
     }
 
@@ -442,10 +452,27 @@
         return;
       }
 
-      pieza.classList.add('esta-cambiando');
+      /* Tres tiempos:
+         1. .esta-saliendo   el texto actual se va hacia arriba
+         2. cambiamos el contenido mientras no se ve
+         3. .esta-entrando   el nuevo aparece desde abajo
+
+         El doble requestAnimationFrame del paso 3 no es un capricho: si
+         quitamos la clase en el mismo instante en que la ponemos, el
+         navegador junta las dos órdenes y no anima nada. Esperar un
+         fotograma le obliga a dibujar el estado inicial primero. */
+      pieza.classList.add('esta-saliendo');
+
       window.setTimeout(function () {
         escribir(NOTICIAS_PORTADA[indiceActual]);
-        pieza.classList.remove('esta-cambiando');
+        pieza.classList.remove('esta-saliendo');
+        pieza.classList.add('esta-entrando');
+
+        window.requestAnimationFrame(function () {
+          window.requestAnimationFrame(function () {
+            pieza.classList.remove('esta-entrando');
+          });
+        });
       }, CONFIG.milisegundosTransicion);
     }
 
@@ -588,18 +615,84 @@
 
 
   /* ==================================================================
-     8. NAVEGACIÓN FIJA
+     8. BARRA FIJA Y PROGRESO DE LECTURA
+     ------------------------------------------------------------------
+     Tres cosas dependen del scroll: la sombra de la navegación, la
+     marca ¶ que aparece cuando el logo grande deja de verse, y la barra
+     roja de progreso.
+
+     Las tres van en UN SOLO listener. Si pusiéramos tres, el navegador
+     ejecutaría tres funciones por cada píxel de scroll.
+
+     Además usamos requestAnimationFrame: el evento 'scroll' se dispara
+     decenas de veces por segundo, pero la pantalla solo se redibuja 60
+     veces. Con esta técnica calculamos una vez por fotograma y no más.
      ================================================================== */
   function iniciarNavFija() {
     const nav = document.getElementById('nav');
     if (!nav) return;
 
-    function revisar() {
-      nav.classList.toggle('esta-fijada', window.scrollY > nav.offsetTop);
+    // Marca ¶ dentro de la barra fija
+    const caja = document.createElement('div');
+    caja.className = 'nav__marca-caja';
+    caja.setAttribute('aria-hidden', 'true');   // decorativa: no se lee en voz alta
+
+    const marca = document.createElement('span');
+    marca.className = 'nav__marca';
+    marca.textContent = '\u00B6';
+    caja.append(marca);
+    nav.append(caja);
+
+    // Barra de progreso de lectura
+    const progreso = document.createElement('div');
+    progreso.className = 'progreso-lectura';
+    progreso.setAttribute('aria-hidden', 'true');
+    document.body.prepend(progreso);
+
+    const cabecera = document.querySelector('.cabecera');
+
+    /* Altura de todo lo que hay ENCIMA de la navegación (barra superior,
+       logo y, si está abierto, el panel de búsqueda). El CSS la usa como
+       "top" negativo para dejar solo la franja de secciones a la vista. */
+    function medirCabecera() {
+      if (!cabecera) return;
+      cabecera.style.setProperty('--alto-sobre-nav', nav.offsetTop + 'px');
     }
 
-    revisar();
-    window.addEventListener('scroll', revisar, { passive: true });
+    let pendiente = false;
+
+    function medir() {
+      pendiente = false;
+
+      nav.classList.toggle('esta-fijada', window.scrollY > nav.offsetTop);
+
+      const recorrido = document.documentElement.scrollHeight - window.innerHeight;
+      const avance = recorrido > 0 ? window.scrollY / recorrido : 0;
+      progreso.style.transform = 'scaleX(' + Math.min(1, Math.max(0, avance)) + ')';
+    }
+
+    function alHacerScroll() {
+      if (pendiente) return;
+      pendiente = true;
+      window.requestAnimationFrame(medir);
+    }
+
+    medirCabecera();
+    medir();
+
+    window.addEventListener('scroll', alHacerScroll, { passive: true });
+    window.addEventListener('resize', function () {
+      medirCabecera();
+      alHacerScroll();
+    }, { passive: true });
+
+    // Las tipografías cambian la altura del logo al terminar de cargar
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(medirCabecera);
+    }
+
+    // Otras partes del código avisan cuando cambia la altura de la cabecera
+    document.addEventListener('cabecera:cambio', medirCabecera);
   }
 
 
@@ -621,7 +714,66 @@
 
 
   /* ==================================================================
-     10. ARRANQUE
+     10. REVELADO AL ENTRAR EN PANTALLA
+     ------------------------------------------------------------------
+     Cada bloque aparece cuando te acercas a él, en vez de estar ya ahí.
+     Da sensación de que el periódico se va componiendo mientras bajas.
+
+     Usamos IntersectionObserver: en lugar de preguntar "¿ya se ve?" en
+     cada scroll (caro), le pedimos al navegador que nos avise. Él lo
+     hace fuera del hilo principal, así que no cuesta rendimiento.
+
+     Importante: el CSS solo esconde lo que tenga data-revelar, y ese
+     atributo lo ponemos aquí. Si este archivo fallara, la página se
+     vería completa igualmente. Nunca escondas contenido que dependa de
+     que el JavaScript funcione.
+     ================================================================== */
+  function iniciarRevelado() {
+    if (prefiereMenosMovimiento) return;
+    if (!('IntersectionObserver' in window)) return;
+
+    /* Qué se revela y en qué orden. Los grupos con varios elementos
+       entran escalonados: 80 ms de diferencia entre uno y otro. */
+    const grupos = [
+      { selector: '.portada__pieza', escalon: 0 },
+      { selector: '.seccion-cabeza', escalon: 0 },
+      { selector: '.tarjeta', escalon: 80 },
+      { selector: '.opinion__texto, .opinion__figura', escalon: 120 },
+      { selector: '.boletin__caja', escalon: 0 },
+      { selector: '.pie__rejilla > *', escalon: 60 }
+    ];
+
+    const vigilante = new IntersectionObserver(function (entradas) {
+      entradas.forEach(function (entrada) {
+        if (!entrada.isIntersecting) return;
+        entrada.target.classList.add('es-visible');
+        vigilante.unobserve(entrada.target);   // una vez revelado, deja de vigilarlo
+      });
+    }, {
+      /* threshold: el bloque aparece cuando se ve el 15% de él.
+
+         Antes usaba rootMargin negativo ("espera a que entre 90px") y tenía
+         un fallo real: las últimas columnas del pie quedan a menos de 90px
+         del final de la página, así que nunca llegaban a cumplirlo y se
+         quedaban invisibles para siempre. Con threshold no puede pasar:
+         al llegar abajo del todo se ven al 100%. */
+      threshold: CONFIG.porcionVisibleParaRevelar
+    });
+
+    grupos.forEach(function (grupo) {
+      elementos(grupo.selector).forEach(function (el, i) {
+        el.setAttribute('data-revelar', '');
+        if (grupo.escalon > 0) {
+          el.style.setProperty('--retraso', (i * grupo.escalon) + 'ms');
+        }
+        vigilante.observe(el);
+      });
+    });
+  }
+
+
+  /* ==================================================================
+     11. ARRANQUE
      ================================================================== */
   mostrarFechaDeHoy();
   const menu = iniciarMenuMovil();
@@ -629,6 +781,7 @@
   iniciarPortada();
   iniciarBoletin();
   iniciarNavFija();
+  iniciarRevelado();
 
   // El menú y la búsqueda no deben quedar abiertos a la vez
   if (menu && busqueda) {

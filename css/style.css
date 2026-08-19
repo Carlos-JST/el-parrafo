@@ -14,6 +14,7 @@
    10. Boletín
    11. Pie de página
    12. Accesibilidad y preferencias del sistema
+   13. Movimiento (revelado y barra de progreso)
 
    Método: mobile first. Los `@media (min-width: …)` van junto al componente
    que modifican, no todos juntos al final.
@@ -80,8 +81,14 @@
   --radio: 2px;
   --sombra-fija: 0 1px 0 var(--color-borde), 0 6px 18px rgba(17, 17, 17, 0.05);
 
-  /* --- Movimiento --- */
-  --transicion: 200ms ease;
+  /* --- Movimiento ---
+     Una sola curva para todo el sitio: arranca rápido y frena suave.
+     Es lo que hace que las animaciones se sientan "caras" y no mecánicas. */
+  --curva: cubic-bezier(0.22, 0.68, 0.24, 1);
+  --mov-rapido: 180ms;
+  --mov-medio: 340ms;
+  --mov-lento: 620ms;
+  --transicion: var(--mov-rapido) var(--curva);
 }
 
 
@@ -215,6 +222,9 @@ button { cursor: pointer; }
    04. BOTONES, ETIQUETAS Y ENLACES
    ========================================================================== */
 .boton {
+  position: relative;
+  isolation: isolate;               /* mantiene el ::before por debajo del texto */
+  overflow: hidden;
   display: inline-flex;
   align-items: center;
   gap: var(--e-2);
@@ -231,21 +241,37 @@ button { cursor: pointer; }
   transition: background-color var(--transicion), border-color var(--transicion), color var(--transicion);
 }
 
-.boton--primario:hover,
-.boton--primario:focus-visible {
-  background-color: var(--color-rojo);
-  border-color: var(--color-rojo);
+/* El color de acento entra desde abajo en lugar de aparecer de golpe */
+.boton::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-color: var(--relleno, var(--color-rojo));
+  transform: scaleY(0);
+  transform-origin: 50% 100%;
+  transition: transform var(--mov-medio) var(--curva);
 }
 
+.boton:hover::before,
+.boton:focus-visible::before { transform: scaleY(1); }
+
+/* La flecha avanza un poco al pasar por encima */
+.boton span[aria-hidden="true"] {
+  transition: transform var(--mov-medio) var(--curva);
+}
+.boton:hover span[aria-hidden="true"] { transform: translateX(4px); }
+
+.boton--primario:hover,
+.boton--primario:focus-visible { border-color: var(--color-rojo); }
+
 .boton--secundario {
+  --relleno: var(--color-negro);
   background-color: transparent;
   color: var(--color-negro);
 }
 .boton--secundario:hover,
-.boton--secundario:focus-visible {
-  background-color: var(--color-negro);
-  color: var(--color-blanco);
-}
+.boton--secundario:focus-visible { color: var(--color-blanco); }
 
 /* Etiqueta de categoría (SOCIEDAD, ECONOMÍA…) */
 .etiqueta {
@@ -267,15 +293,21 @@ button { cursor: pointer; }
   text-transform: uppercase;
   text-decoration: none;
   color: var(--color-negro);
-  border-bottom: 1px solid var(--color-negro);
+  border-bottom: 1px solid var(--color-borde);
   padding-bottom: 2px;
   width: fit-content;
-  transition: color var(--transicion), border-color var(--transicion);
+
+  /* La línea roja se dibuja de izquierda a derecha encima de la gris */
+  background-image: linear-gradient(var(--color-rojo), var(--color-rojo));
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 0% 1px;
+  transition: color var(--transicion), background-size var(--mov-medio) var(--curva);
 }
 .enlace-leer:hover,
 .enlace-leer:focus-visible {
   color: var(--color-rojo);
-  border-color: var(--color-rojo);
+  background-size: 100% 1px;
 }
 
 /* Botón con icono (Menú / Buscar / Cerrar) */
@@ -292,7 +324,13 @@ button { cursor: pointer; }
   transition: color var(--transicion);
 }
 .boton-icono:hover { color: var(--color-rojo); }
-.boton-icono svg { width: 22px; height: 22px; fill: currentColor; }
+.boton-icono svg {
+  width: 22px;
+  height: 22px;
+  fill: currentColor;
+  transition: transform var(--mov-medio) var(--curva);
+}
+.boton-icono:hover svg { transform: scale(1.12); }
 
 /* --- Estado abierto / cerrado ---
    El botón lleva dentro los dos iconos y los dos textos.
@@ -323,6 +361,20 @@ button { cursor: pointer; }
   position: relative;
   z-index: 50;
   background-color: var(--color-blanco);
+}
+
+/* Barra de secciones siempre visible (solo en escritorio).
+
+   Truco: en vez de fijar la navegación —que no puede salir de su padre—
+   fijamos la CABECERA ENTERA con un "top" negativo igual a la altura de
+   todo lo que hay encima de la navegación. Resultado: la barra superior y
+   el logo se van hacia arriba, y la franja de secciones se queda pegada.
+   Esa altura la mide JavaScript y la guarda en --alto-sobre-nav. */
+@media (min-width: 62em) {
+  .cabecera {
+    position: sticky;
+    top: calc(var(--alto-sobre-nav, 0px) * -1);
+  }
 }
 
 /* --- 5.1 Barra superior negra --- */
@@ -379,9 +431,12 @@ button { cursor: pointer; }
 .redes a {
   display: block;
   color: rgba(255, 255, 255, 0.75);
-  transition: color var(--transicion);
+  transition: color var(--transicion), transform var(--mov-medio) var(--curva);
 }
-.redes a:hover { color: var(--color-blanco); }
+.redes a:hover {
+  color: var(--color-blanco);
+  transform: translateY(-2px);
+}
 .redes svg { width: 16px; height: 16px; fill: currentColor; }
 
 @media (min-width: 62em) {            /* 992px */
@@ -536,14 +591,46 @@ button { cursor: pointer; }
 
 /* --- 5.4 Navegación de secciones --- */
 .nav {
-  position: sticky;
-  top: 0;
+  position: relative;      /* referencia para la marca ¶ que va dentro */
   z-index: 40;
   border-block: var(--linea);
   background-color: var(--color-blanco);
   transition: box-shadow var(--transicion);
 }
 .nav.esta-fijada { box-shadow: var(--sombra-fija); }
+
+/* Marca ¶ que aparece en la barra fija cuando el logo grande ya no se ve.
+   La crea JavaScript; la caja la alinea con el contenido de la página. */
+.nav__marca-caja {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: var(--ancho-contenedor);
+  margin-inline: auto;
+  padding-inline: var(--margen-lateral);
+  pointer-events: none;
+}
+
+.nav__marca {
+  font-family: var(--fuente-titulo);
+  font-size: 1.35rem;
+  line-height: 1;
+  color: var(--color-negro);
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity var(--mov-medio) var(--curva), transform var(--mov-medio) var(--curva);
+}
+
+.nav.esta-fijada .nav__marca {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (max-width: 61.99em) {
+  .nav__marca-caja { display: none; }
+}
 
 .nav__lista {
   display: flex;
@@ -554,6 +641,7 @@ button { cursor: pointer; }
 .nav__lista::-webkit-scrollbar { display: none; }
 
 .nav__lista a {
+  position: relative;
   display: block;
   padding: 0.85rem 1.05rem;
   font-size: 0.75rem;
@@ -563,23 +651,32 @@ button { cursor: pointer; }
   text-decoration: none;
   white-space: nowrap;
   color: var(--color-oscuro);
-  border-bottom: 2px solid transparent;
-  transition: color var(--transicion), border-color var(--transicion);
+  transition: color var(--transicion);
 }
 
 .nav__lista li + li a { border-left: 1px solid var(--color-borde-suave); }
 
-.nav__lista a:hover,
-.nav__lista a:focus-visible {
-  color: var(--color-negro);
-  border-bottom-color: var(--color-negro);
+/* El subrayado crece desde el centro en lugar de encenderse de golpe */
+.nav__lista a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 2px;
+  background-color: currentColor;
+  transform: scaleX(0);
+  transition: transform var(--mov-medio) var(--curva);
 }
 
-/* Sección activa: acento rojo */
-.nav__lista a[aria-current="page"] {
-  color: var(--color-rojo);
-  border-bottom-color: var(--color-rojo);
-}
+.nav__lista a:hover,
+.nav__lista a:focus-visible { color: var(--color-negro); }
+.nav__lista a:hover::after,
+.nav__lista a:focus-visible::after { transform: scaleX(1); }
+
+/* Sección activa: acento rojo, siempre subrayada */
+.nav__lista a[aria-current="page"] { color: var(--color-rojo); }
+.nav__lista a[aria-current="page"]::after { transform: scaleX(1); }
 
 @media (min-width: 62em) {
   .nav__lista { justify-content: center; }
@@ -676,16 +773,26 @@ button { cursor: pointer; }
   border-bottom: var(--linea);
 }
 
-/* Ya no hay tres copias del HTML: hay UNA pieza cuyo contenido cambia.
-   Al cambiar, JavaScript le pone la clase .esta-cambiando durante un
-   instante y el CSS hace el fundido. */
+/* Hay UNA pieza cuyo contenido cambia. JavaScript le pone .esta-saliendo,
+   sustituye los textos y le pone .esta-entrando: el texto sale hacia arriba
+   y el siguiente entra desde abajo. La imagen acompaña con un zoom mínimo. */
 .portada__pieza {
   display: grid;
   gap: var(--e-5);
   align-content: start;
-  transition: opacity 260ms ease;
 }
-.portada__pieza.esta-cambiando { opacity: 0; }
+
+.portada__texto,
+.portada__figura {
+  transition: opacity var(--mov-medio) var(--curva),
+              transform var(--mov-medio) var(--curva);
+}
+
+.portada__pieza.esta-saliendo .portada__texto { opacity: 0; transform: translateY(-14px); }
+.portada__pieza.esta-saliendo .portada__figura { opacity: 0; transform: scale(1.03); }
+
+.portada__pieza.esta-entrando .portada__texto { opacity: 0; transform: translateY(16px); }
+.portada__pieza.esta-entrando .portada__figura { opacity: 0; transform: scale(0.97); }
 
 .portada__texto {
   display: grid;
@@ -737,13 +844,16 @@ button { cursor: pointer; }
   background-color: var(--color-blanco);
   color: var(--color-negro);
   line-height: 1;
-  transition: background-color var(--transicion), color var(--transicion), border-color var(--transicion);
+  transition: background-color var(--transicion), color var(--transicion),
+              border-color var(--transicion), transform var(--mov-medio) var(--curva);
 }
 .portada__flecha:hover {
   background-color: var(--color-negro);
   border-color: var(--color-negro);
   color: var(--color-blanco);
 }
+.portada__flecha[data-portada="anterior"]:hover { transform: translateX(-3px); }
+.portada__flecha[data-portada="siguiente"]:hover { transform: translateX(3px); }
 
 .portada__puntos {
   display: flex;
@@ -811,9 +921,9 @@ button { cursor: pointer; }
   width: 100%;
   aspect-ratio: 4 / 3;
   object-fit: cover;
-  transition: transform 500ms ease;
+  transition: transform var(--mov-lento) var(--curva);
 }
-.tarjeta__enlace:hover .tarjeta__figura img { transform: scale(1.04); }
+.tarjeta__enlace:hover .tarjeta__figura img { transform: scale(1.06); }
 
 .tarjeta__titulo {
   font-size: var(--tit-xs);
@@ -821,6 +931,13 @@ button { cursor: pointer; }
   transition: color var(--transicion);
 }
 .tarjeta__enlace:hover .tarjeta__titulo { color: var(--color-rojo); }
+
+/* Pasar por cualquier punto de la tarjeta activa su enlace "Leer más" */
+.tarjeta__enlace:hover .enlace-leer,
+.tarjeta__enlace:focus-visible .enlace-leer {
+  color: var(--color-rojo);
+  background-size: 100% 1px;
+}
 
 .tarjeta__resumen {
   font-size: 0.9375rem;
@@ -1014,10 +1131,12 @@ button { cursor: pointer; }
 .pie__columna li + li { margin-top: var(--e-2); }
 
 .pie__columna a {
+  display: inline-block;
   font-size: 0.875rem;
   text-decoration: none;
-  transition: color var(--transicion);
+  transition: color var(--transicion), transform var(--mov-medio) var(--curva);
 }
+.pie__columna a:hover { transform: translateX(4px); }
 .pie__columna a:hover,
 .pie__columna a:focus-visible { color: var(--color-blanco); }
 
@@ -1045,6 +1164,46 @@ button { cursor: pointer; }
 
 
 /* ==========================================================================
+   13. MOVIMIENTO
+   Revelado al entrar en pantalla y barra de progreso de lectura.
+   Regla de oro: solo animamos "opacity" y "transform". Son las dos
+   propiedades que el navegador puede mover sin recalcular la página,
+   así que van suaves incluso en un móvil modesto. Animar "height",
+   "margin" o "top" obliga a rehacer el diseño en cada fotograma.
+   ========================================================================== */
+
+/* El atributo data-revelar lo pone JavaScript. Si el JS no carga o el
+   usuario pidió menos movimiento, el contenido se ve normal: nunca
+   escondemos nada con CSS que no podamos volver a mostrar. */
+[data-revelar] {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity var(--mov-lento) var(--curva),
+              transform var(--mov-lento) var(--curva);
+  transition-delay: var(--retraso, 0ms);
+}
+
+[data-revelar].es-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Barra fina que marca cuánto llevas leído. La crea JavaScript. */
+.progreso-lectura {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 80;
+  width: 100%;
+  height: 3px;
+  background-color: var(--color-rojo);
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+  pointer-events: none;
+}
+
+
+/* ==========================================================================
    12. ACCESIBILIDAD Y PREFERENCIAS DEL SISTEMA
    ========================================================================== */
 
@@ -1057,6 +1216,12 @@ button { cursor: pointer; }
 /* Respeta a quien pidió menos animación en su sistema operativo */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
+
+  /* Sin animación de entrada, pero el contenido SIEMPRE visible */
+  [data-revelar] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
 
   *,
   *::before,
