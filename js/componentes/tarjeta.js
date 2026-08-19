@@ -14,7 +14,7 @@
    casi línea por línea en Tarjeta.jsx.
    ========================================================================== */
 
-import { fechaLegible } from '../utilidades/texto.js';
+import { fechaLegible, rutas } from '../utilidades/texto.js';
 
 export function crearTarjeta(articulo) {
   const tarjeta = document.createElement('article');
@@ -23,8 +23,7 @@ export function crearTarjeta(articulo) {
 
   const enlace = document.createElement('a');
   enlace.className = 'tarjeta__enlace';
-  enlace.href = '#';                       // en la Fase 4C apuntará al artículo
-  enlace.dataset.slug = articulo.slug;
+  enlace.href = rutas.articulo(articulo.slug);   // articulo.html?nota=...
 
   // --- Imagen ---
   const figura = document.createElement('figure');

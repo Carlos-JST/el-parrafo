@@ -1,0 +1,44 @@
+[
+  {
+    "slug": "redaccion",
+    "nombre": "Redacción",
+    "rol": "Equipo de El Párrafo",
+    "bio": "Trabajos firmados por el equipo del periódico: coberturas colectivas, verificaciones y piezas elaboradas entre varias secciones."
+  },
+  {
+    "slug": "laura-beltre",
+    "nombre": "Laura Beltré",
+    "rol": "Economía y mercados",
+    "bio": "Cubre política económica, banca y comercio exterior. Le interesa lo que hay detrás de las cifras oficiales: quién las produce, qué miden y qué dejan fuera."
+  },
+  {
+    "slug": "josue-fermin",
+    "nombre": "Josué Fermín",
+    "rol": "Política e instituciones",
+    "bio": "Escribe sobre el funcionamiento del Estado, justicia y obra pública. Sigue los expedientes largos, esos que no caben en un titular de un día."
+  },
+  {
+    "slug": "ana-cordero",
+    "nombre": "Ana Cordero",
+    "rol": "Sociedad",
+    "bio": "Reportera de calle. Se ocupa de juventud, comercio de barrio y vida urbana, con la idea de que ninguna estadística explica un país por sí sola."
+  },
+  {
+    "slug": "miguel-urena",
+    "nombre": "Miguel Ureña",
+    "rol": "Datos e investigación",
+    "bio": "Periodismo de datos aplicado a salud, tecnología y servicios públicos. Se dedica sobre todo a medir lo que nadie está midiendo."
+  },
+  {
+    "slug": "paola-then",
+    "nombre": "Paola Then",
+    "rol": "Cultura",
+    "bio": "Cubre libros, música y museos. Le interesa cómo se produce y quién consume la cultura que se hace en el país."
+  },
+  {
+    "slug": "daniel-m",
+    "nombre": "Daniel M.",
+    "rol": "Columnista",
+    "bio": "Firma la columna Entre líneas. Escribe sobre debate público, instituciones y el hábito, cada vez más raro, de discutir despacio."
+  }
+]

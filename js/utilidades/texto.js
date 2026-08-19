@@ -40,6 +40,29 @@ export function fechaLegible(fechaIso) {
   return new Intl.DateTimeFormat('es-DO', { day: 'numeric', month: 'short' }).format(fecha);
 }
 
+/* Convierte un texto en algo que cabe en una URL:
+   "Internacional" → "internacional",  "Opinión" → "opinion"
+   Así seccion.html?categoria=opinion funciona sin acentos ni espacios. */
+export function slugificar(texto) {
+  return normalizar(texto).replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+}
+
+/* Direcciones del sitio en UN SOLO SITIO.
+   Si mañana cambiamos a URLs bonitas del tipo /politica/mi-noticia, se
+   toca aquí y se arregla en todo el proyecto a la vez. */
+export const rutas = {
+  articulo: function (slug) { return 'articulo.html?nota=' + encodeURIComponent(slug); },
+  seccion: function (categoria) { return 'seccion.html?seccion=' + slugificar(categoria); },
+  autor: function (slug) { return 'autor.html?firma=' + encodeURIComponent(slug); },
+  inicio: 'index.html'
+};
+
+/* Lee un parámetro de la barra de direcciones.
+   De "articulo.html?nota=la-reforma" saca "la-reforma". */
+export function parametroDeUrl(nombre) {
+  return new URLSearchParams(window.location.search).get(nombre) || '';
+}
+
 // Atajos para no repetir document.querySelector por todas partes
 export function elemento(selector, dentroDe) {
   return (dentroDe || document).querySelector(selector);

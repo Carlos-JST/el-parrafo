@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="El Párrafo — periódico digital dominicano. Análisis, reportajes y opinión sobre política, economía, sociedad, cultura e internacional.">
+  <meta name="description" content="Artículo de El Párrafo, periódico digital dominicano.">
   <meta name="theme-color" content="#111111">
-  <title>El Párrafo — Donde las ideas se escriben completas</title>
+  <title>Artículo — El Párrafo</title>
 
   <link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml">
 
@@ -142,7 +142,7 @@
     <!-- Navegación por secciones -->
     <nav class="nav" id="nav" aria-label="Secciones del periódico">
       <ul class="contenedor nav__lista">
-        <li><a href="index.html" aria-current="page">Inicio</a></li>
+        <li><a href="index.html">Inicio</a></li>
         <li><a href="seccion.html?seccion=politica">Política</a></li>
         <li><a href="seccion.html?seccion=economia">Economía</a></li>
         <li><a href="seccion.html?seccion=sociedad">Sociedad</a></li>
@@ -163,7 +163,7 @@
       <p class="menu-movil__titulo">Secciones</p>
 
       <ul class="menu-movil__lista">
-        <li><a href="index.html" aria-current="page">Inicio</a></li>
+        <li><a href="index.html">Inicio</a></li>
         <li><a href="seccion.html?seccion=politica">Política</a></li>
         <li><a href="seccion.html?seccion=economia">Economía</a></li>
         <li><a href="seccion.html?seccion=sociedad">Sociedad</a></li>
@@ -185,183 +185,62 @@
        CONTENIDO PRINCIPAL
        ============================================================ -->
   <main id="contenido">
-    <h1 class="visualmente-oculto">El Párrafo — portada del día</h1>
 
-    <!-- ---------- PORTADA / NOTICIA PRINCIPAL ----------
-         Una sola noticia escrita en HTML: es la plantilla. Los artículos
-         marcados como "destacado" en js/datos/articulos.json van rellenando
-         estos huecos. Los atributos data-portada-* son las marcas que el
-         JavaScript busca para saber dónde escribir cada dato. -->
-    <section class="portada" aria-roledescription="carrusel" aria-label="Noticias principales">
-      <div class="contenedor">
-        <article class="portada__pieza" id="portada-pieza">
+    <!-- Todo lo de dentro lo rellena js/paginas/articulo.js según el
+         parámetro ?nota= de la dirección. Mientras carga se ve el
+         esqueleto gris; si el artículo no existe, un aviso. -->
+    <article class="nota" id="nota" hidden>
+      <div class="contenedor nota__cabeza">
+        <nav class="miga" aria-label="Estás aquí">
+          <a href="index.html">Inicio</a>
+          <span aria-hidden="true">›</span>
+          <a href="#" data-nota-seccion>Sección</a>
+        </nav>
 
-          <div class="portada__texto">
-            <p class="etiqueta etiqueta--roja" data-portada-categoria>Noticia principal</p>
-            <h2 class="portada__titulo" data-portada-titulo>La reforma que necesita el país</h2>
-            <p class="portada__resumen" data-portada-resumen>
-              Un análisis profundo sobre los desafíos estructurales que enfrenta la
-              República Dominicana y las reformas que podrían transformar su futuro.
-            </p>
-            <p class="meta" data-portada-meta>Por Redacción · 8 min de lectura</p>
-            <a class="boton boton--primario" href="#" data-portada-enlace>
-              Leer más <span aria-hidden="true">&#8594;</span>
-            </a>
-          </div>
+        <h1 class="nota__titulo" data-nota-titulo></h1>
+        <p class="nota__entradilla" data-nota-resumen></p>
 
-          <div class="portada__media">
-            <figure class="portada__figura">
-              <img src="assets/images/portada-1.svg"
-                   alt="Fachada del Palacio Nacional con su cúpula y la bandera dominicana"
-                   width="1200" height="800" data-portada-imagen>
-            </figure>
-
-            <div class="portada__controles">
-              <button class="portada__flecha" type="button" data-portada="anterior">
-                <span aria-hidden="true">&#8592;</span>
-                <span class="visualmente-oculto">Noticia anterior</span>
-              </button>
-
-              <div class="portada__puntos" id="portada-puntos"></div>
-
-              <button class="portada__flecha" type="button" data-portada="siguiente">
-                <span aria-hidden="true">&#8594;</span>
-                <span class="visualmente-oculto">Noticia siguiente</span>
-              </button>
-            </div>
-          </div>
-
-        </article>
-      </div>
-    </section>
-
-    <!-- ---------- EN BREVE ----------
-         Titulares sin imagen, para leer de un vistazo. Lo dibuja
-         js/componentes/bloques.js con las noticias más recientes. -->
-    <section class="breves" aria-labelledby="titulo-breves">
-      <div class="contenedor">
-        <header class="seccion-cabeza">
-          <h2 class="seccion-cabeza__titulo" id="titulo-breves">En breve</h2>
-          <p class="seccion-cabeza__conteo">Lo último</p>
-        </header>
-        <ul class="breves__lista" id="lista-breves"></ul>
-      </div>
-    </section>
-
-    <!-- ---------- ÚLTIMAS NOTICIAS ----------
-         La rejilla llega VACÍA desde el HTML. Las tarjetas las construye
-         js/componentes/tarjeta.js con los datos del JSON. Antes cada
-         noticia eran quince líneas de HTML; ahora son seis de datos. -->
-    <section class="ultimas" aria-labelledby="titulo-ultimas">
-      <div class="contenedor">
-        <header class="seccion-cabeza">
-          <h2 class="seccion-cabeza__titulo" id="titulo-ultimas">Últimas noticias</h2>
-          <p class="seccion-cabeza__conteo" id="conteo-noticias"></p>
-        </header>
-
-        <!-- Los botones los crea JavaScript a partir de las categorías -->
-        <div class="filtros" id="filtros" role="group" aria-label="Filtrar noticias por sección"></div>
-
-        <div class="ultimas__columnas">
-          <div class="ultimas__principal">
-            <div class="ultimas__rejilla" id="rejilla-noticias" aria-live="polite"></div>
-            <p class="estado" id="estado-noticias" role="status"></p>
-
-            <div class="ultimas__mas">
-              <button class="boton boton--secundario" type="button" id="ver-mas" hidden>
-                Ver más noticias
-              </button>
-            </div>
-          </div>
-
-          <aside class="mas-leido" aria-labelledby="titulo-mas-leido">
-            <h2 class="mas-leido__titulo" id="titulo-mas-leido">Lo más leído</h2>
-            <ol class="mas-leido__lista" id="lista-mas-leido"></ol>
-          </aside>
-        </div>
-      </div>
-    </section>
-
-    <!-- ---------- EN PROFUNDIDAD ----------
-         Los reportajes largos, con más espacio y composición horizontal. -->
-    <section class="profundidad" aria-labelledby="titulo-profundidad">
-      <div class="contenedor">
-        <header class="seccion-cabeza">
-          <h2 class="seccion-cabeza__titulo" id="titulo-profundidad">En profundidad</h2>
-          <p class="seccion-cabeza__conteo">Para leer con calma</p>
-        </header>
-        <div class="profundidad__lista" id="lista-profundidad"></div>
-      </div>
-    </section>
-
-    <!-- ---------- OPINIÓN ----------
-         También se rellena desde los datos: toma la columna más reciente. -->
-    <section class="opinion" aria-labelledby="titulo-opinion">
-      <div class="contenedor opinion__rejilla">
-        <div class="opinion__texto">
-          <p class="etiqueta">
-            <span class="opinion__seccion">Entre líneas</span>
-            <span class="opinion__barra" aria-hidden="true">|</span>
-            <span class="etiqueta--roja">Opinión</span>
-          </p>
-
-          <h2 class="opinion__titulo" id="titulo-opinion" data-opinion-titulo>
-            No se trata de izquierda o derecha, se trata de hacer lo correcto
-          </h2>
-
-          <p class="opinion__resumen" data-opinion-resumen>
-            Discutimos etiquetas mientras las decisiones concretas pasan sin que
-            nadie las mire de cerca.
-          </p>
-
-          <p class="opinion__autor" data-opinion-autor>Por Daniel M.</p>
-          <a class="enlace-leer" href="#" data-opinion-enlace>Leer la columna <span aria-hidden="true">&#8594;</span></a>
-        </div>
-
-        <figure class="opinion__figura">
-          <img src="assets/images/opinion-pluma.svg"
-               alt="Pluma estilográfica apoyada sobre un texto escrito a mano"
-               width="1200" height="800" loading="lazy" data-opinion-imagen>
-        </figure>
-      </div>
-    </section>
-
-    <!-- ---------- COLUMNISTAS ----------
-         Las demás columnas de opinión, presentadas por su firma. -->
-    <section class="columnistas" aria-labelledby="titulo-columnistas">
-      <div class="contenedor">
-        <header class="seccion-cabeza">
-          <h2 class="seccion-cabeza__titulo" id="titulo-columnistas">Columnistas</h2>
-          <a class="enlace-leer" href="seccion.html?seccion=opinion">
-            Toda la opinión <span aria-hidden="true">&#8594;</span>
+        <div class="nota__firma">
+          <a class="firma" href="#" data-nota-autor-enlace>
+            <span class="firma__inicial" data-nota-autor-inicial aria-hidden="true"></span>
+            <span>
+              <span class="firma__nombre" data-nota-autor-nombre></span>
+              <span class="firma__rol meta" data-nota-autor-rol></span>
+            </span>
           </a>
-        </header>
-        <div class="columnistas__rejilla" id="lista-columnistas"></div>
-      </div>
-    </section>
-
-    <!-- ---------- BOLETÍN ---------- -->
-    <section class="boletin" aria-labelledby="titulo-boletin">
-      <div class="contenedor">
-        <div class="boletin__caja">
-          <div class="boletin__texto">
-            <h2 class="boletin__titulo" id="titulo-boletin">Suscríbete al boletín</h2>
-            <p class="boletin__descripcion">
-              Un resumen diario con lo esencial, en tu correo antes de las 7:00 a. m.
-            </p>
-          </div>
-
-          <form class="boletin__forma" id="forma-boletin" novalidate>
-            <label class="visualmente-oculto" for="campo-correo">Tu correo electrónico</label>
-            <input class="boletin__campo" id="campo-correo" name="correo" type="email"
-                   placeholder="tucorreo@ejemplo.com" autocomplete="email">
-            <button class="boton boton--primario" type="submit">Suscribirme</button>
-          </form>
-
-          <p class="boletin__aviso" id="aviso-boletin" role="status"></p>
+          <p class="meta" data-nota-meta></p>
         </div>
       </div>
+
+      <figure class="nota__figura">
+        <img src="" alt="" width="1200" height="800" data-nota-imagen>
+        <figcaption class="meta" data-nota-pie></figcaption>
+      </figure>
+
+      <div class="contenedor">
+        <div class="nota__cuerpo" data-nota-cuerpo></div>
+
+        <footer class="nota__pie">
+          <p class="meta">Publicado en <a href="#" data-nota-seccion></a></p>
+          <a class="enlace-leer" href="index.html">Volver a la portada <span aria-hidden="true">&#8594;</span></a>
+        </footer>
+      </div>
+    </article>
+
+    <!-- Artículos de la misma sección -->
+    <section class="ultimas" id="relacionados" hidden aria-labelledby="titulo-relacionados">
+      <div class="contenedor">
+        <header class="seccion-cabeza">
+          <h2 class="seccion-cabeza__titulo" id="titulo-relacionados">Seguir leyendo</h2>
+        </header>
+        <div class="ultimas__rejilla" id="rejilla-relacionados"></div>
+      </div>
     </section>
+
+    <!-- Estados: cargando y no encontrado -->
+    <div class="contenedor">
+      <p class="estado" id="estado-nota" role="status">Cargando el artículo…</p>
+    </div>
   </main>
 
   <!-- ============================================================
@@ -419,6 +298,6 @@
   <!-- type="module" permite import/export.
        IMPORTANTE: obliga a servir la página desde un servidor. Con doble
        clic (file://) el navegador lo bloquea por seguridad. Usa Live Server. -->
-  <script type="module" src="js/main.js"></script>
+  <script type="module" src="js/paginas/articulo.js"></script>
 </body>
 </html>

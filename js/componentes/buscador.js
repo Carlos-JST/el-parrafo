@@ -6,7 +6,7 @@
    y encuentra noticias aunque no estén visibles por culpa de un filtro.
    ========================================================================== */
 
-import { normalizar, elemento } from '../utilidades/texto.js';
+import { normalizar, elemento, rutas } from '../utilidades/texto.js';
 
 export function iniciarBuscador(articulos) {
   const boton = elemento('.boton-buscar');
@@ -67,8 +67,7 @@ export function iniciarBuscador(articulos) {
 
       const enlace = document.createElement('a');
       enlace.className = 'resultados__enlace';
-      enlace.href = '#';
-      enlace.dataset.slug = articulo.slug;
+      enlace.href = rutas.articulo(articulo.slug);
 
       const categoria = document.createElement('span');
       categoria.className = 'resultados__categoria';

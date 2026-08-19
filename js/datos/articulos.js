@@ -13,7 +13,8 @@
    "separar la fuente de datos de la interfaz".
    ========================================================================== */
 
-const RUTA_DATOS = 'js/datos/articulos.json';
+const RUTA_ARTICULOS = 'js/datos/articulos.json';
+const RUTA_AUTORES = 'js/datos/autores.json';
 
 /* async marca una función que tarda: no devuelve el resultado, devuelve
    la PROMESA de un resultado. Quien la llame tendrá que usar await. */
@@ -21,7 +22,7 @@ export async function cargarArticulos() {
   /* fetch pide un archivo por la red y tarda un tiempo impredecible.
      await significa "espera aquí a que llegue antes de seguir".
      Sin await tendríamos una promesa vacía en lugar de los datos. */
-  const respuesta = await fetch(RUTA_DATOS);
+  const respuesta = await fetch(RUTA_ARTICULOS);
 
   /* fetch NO lanza error si el servidor responde 404 o 500: solo falla si
      no hubo conexión. Por eso comprobamos el estado a mano. */
@@ -40,4 +41,32 @@ export async function cargarArticulos() {
   return articulos.slice().sort(function (a, b) {
     return new Date(b.fecha) - new Date(a.fecha);
   });
+}
+
+
+/* Las fichas de los autores. Mismo patrón: hoy un JSON, mañana una tabla. */
+export async function cargarAutores() {
+  const respuesta = await fetch(RUTA_AUTORES);
+  if (!respuesta.ok) throw new Error('El servidor respondió ' + respuesta.status);
+  return respuesta.json();
+}
+
+/* find() devuelve el PRIMER elemento que cumpla la condición, o undefined
+   si no hay ninguno. filter() devolvería una lista; aquí queremos uno solo. */
+export function buscarPorSlug(articulos, slug) {
+  return articulos.find(function (a) { return a.slug === slug; });
+}
+
+export function articulosDeAutor(articulos, slugAutor) {
+  return articulos.filter(function (a) { return a.autor.slug === slugAutor; });
+}
+
+/* Artículos relacionados: misma categoría, sin repetir el que se está
+   leyendo, los más recientes primero y como máximo tres. */
+export function relacionados(articulos, articulo, cuantos) {
+  return articulos
+    .filter(function (a) {
+      return a.categoria === articulo.categoria && a.slug !== articulo.slug;
+    })
+    .slice(0, cuantos || 3);
 }

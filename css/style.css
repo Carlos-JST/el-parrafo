@@ -15,6 +15,8 @@
    11. Pie de página
    12. Accesibilidad y preferencias del sistema
    13. Movimiento (revelado y barra de progreso)
+   14. Páginas interiores (artículo, sección y firma)
+   15. Bloques de portada (en breve, en profundidad, columnistas)
 
    Método: mobile first. Los `@media (min-width: …)` van junto al componente
    que modifican, no todos juntos al final.
@@ -194,9 +196,12 @@ button { cursor: pointer; }
 /* Cabecera de sección: título pequeño + enlace, con línea inferior */
 .seccion-cabeza {
   display: flex;
+  flex-wrap: wrap;              /* en pantallas estrechas el texto de la
+                                   derecha baja a una segunda línea en vez
+                                   de empujar la página hacia fuera */
   align-items: baseline;
   justify-content: space-between;
-  gap: var(--e-4);
+  gap: var(--e-2) var(--e-4);
   padding-bottom: var(--e-3);
   border-bottom: var(--linea-fuerte);
   margin-bottom: var(--e-6);
@@ -1370,6 +1375,405 @@ button { cursor: pointer; }
   transform: scaleX(0);
   transform-origin: 0 50%;
   pointer-events: none;
+}
+
+
+/* ==========================================================================
+   14. PÁGINAS INTERIORES: artículo, sección y firma
+   ========================================================================== */
+
+/* --- Migas de pan: Inicio › Política --- */
+.miga {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--e-2);
+  font-size: var(--txt-xs);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-texto-suave);
+  margin-bottom: var(--e-5);
+}
+.miga a {
+  text-decoration: none;
+  transition: color var(--transicion);
+}
+.miga a:hover { color: var(--color-rojo); }
+
+/* --- Artículo --- */
+.nota { padding-top: var(--e-seccion); }
+
+/* La columna de lectura es más estrecha que el contenedor general:
+   entre 60 y 75 caracteres por línea es lo que el ojo lee cómodo. */
+.nota__cabeza,
+.nota__cuerpo,
+.nota__pie {
+  max-width: 42rem;
+  margin-inline: auto;
+}
+
+.nota__titulo {
+  font-size: var(--tit-lg);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  margin-bottom: var(--e-4);
+}
+
+.nota__entradilla {
+  font-size: clamp(1.05rem, 1rem + 0.4vw, 1.3rem);
+  line-height: 1.6;
+  color: var(--color-oscuro);
+  margin-bottom: var(--e-5);
+}
+
+.nota__firma {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--e-3);
+  padding-block: var(--e-4);
+  border-block: var(--linea);
+}
+
+.firma {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--e-3);
+  text-decoration: none;
+  color: inherit;
+}
+
+.firma__inicial {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background-color: var(--color-negro);
+  color: var(--color-blanco);
+  font-family: var(--fuente-titulo);
+  font-size: 1.2rem;
+  line-height: 1;
+  transition: background-color var(--transicion);
+}
+.firma:hover .firma__inicial { background-color: var(--color-rojo); }
+
+.firma__nombre {
+  display: block;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+.firma__rol { display: block; }
+
+.nota__figura {
+  margin-block: var(--e-7);
+  background-color: var(--color-gris);
+}
+.nota__figura img {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+.nota__figura figcaption {
+  max-width: 42rem;
+  margin-inline: auto;
+  padding: var(--e-3) var(--margen-lateral) 0;
+}
+
+.nota__cuerpo {
+  font-size: 1.0625rem;
+  line-height: 1.8;
+}
+.nota__cuerpo p + p { margin-top: var(--e-5); }
+
+/* Primer párrafo con algo más de peso, como en la prensa impresa */
+.nota__primero {
+  font-size: 1.15rem;
+  line-height: 1.7;
+  color: var(--color-negro);
+}
+
+.nota__pie {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--e-4);
+  margin-top: var(--e-8);
+  padding-top: var(--e-5);
+  padding-bottom: var(--e-seccion);
+  border-top: var(--linea-fuerte);
+}
+.nota__pie a { color: inherit; }
+.nota__pie .meta a { text-decoration: underline; }
+
+/* --- Cabecera de sección --- */
+.portada-seccion {
+  padding-block: var(--e-seccion) var(--e-6);
+  border-bottom: var(--linea-fuerte);
+}
+
+.portada-seccion__titulo {
+  font-size: var(--tit-md);
+  line-height: 1.05;
+}
+
+.portada-seccion__conteo { margin-top: var(--e-3); }
+
+/* --- Ficha de firma --- */
+.ficha-autor {
+  padding-block: var(--e-seccion);
+  border-bottom: var(--linea);
+  background-color: var(--color-gris);
+}
+
+.ficha-autor__interior { max-width: 46rem; }
+
+.ficha-autor__cabeza {
+  display: flex;
+  align-items: center;
+  gap: var(--e-4);
+  margin-bottom: var(--e-5);
+}
+
+.ficha-autor__inicial {
+  display: grid;
+  place-items: center;
+  width: 72px;
+  height: 72px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background-color: var(--color-negro);
+  color: var(--color-blanco);
+  font-family: var(--fuente-titulo);
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.ficha-autor__nombre {
+  font-size: var(--tit-sm);
+  line-height: 1.1;
+}
+
+.ficha-autor__rol {
+  margin-top: var(--e-1);
+  font-size: var(--txt-xs);
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-rojo);
+}
+
+.ficha-autor__bio {
+  max-width: 42rem;
+  font-size: var(--txt-md);
+  line-height: 1.7;
+  color: var(--color-oscuro);
+  margin-bottom: var(--e-3);
+}
+
+
+/* ==========================================================================
+   15. BLOQUES DE PORTADA: en breve, en profundidad y columnistas
+   --------------------------------------------------------------------------
+   Un periódico no muestra todo igual. Cada bloque tiene su propio peso
+   visual para que el ojo distinga de un vistazo qué es un titular rápido,
+   qué es un reportaje largo y qué es una opinión firmada.
+   ========================================================================== */
+
+/* --- EN BREVE: franja de titulares sin imagen --- */
+.breves {
+  padding-block: var(--e-seccion);
+  border-block: var(--linea);
+  background-color: var(--color-gris);
+}
+
+.breves__lista {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0;
+}
+
+.breve { border-top: var(--linea); }
+.breve:first-child { border-top: 0; }
+
+.breve__enlace {
+  display: grid;
+  gap: var(--e-2);
+  height: 100%;
+  padding-block: var(--e-4);
+  text-decoration: none;
+  color: inherit;
+}
+
+.breve__hora {
+  font-size: var(--txt-xs);
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-rojo);
+}
+
+.breve__titulo {
+  font-family: var(--fuente-titulo);
+  font-size: 1.02rem;
+  font-weight: 600;
+  line-height: 1.28;
+  transition: color var(--transicion);
+}
+.breve__enlace:hover .breve__titulo { color: var(--color-rojo); }
+
+@media (min-width: 48em) {            /* 768px */
+  .breves__lista {
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: var(--e-5);
+  }
+  .breve { border-top: var(--linea); }
+  .breve:nth-child(2) { border-top: var(--linea); }
+}
+
+@media (min-width: 64em) {            /* 1024px: una columna por titular */
+  .breves__lista {
+    grid-template-columns: repeat(5, 1fr);
+    column-gap: 0;
+  }
+  .breve {
+    border-top: 0;
+    border-left: var(--linea);
+    padding-inline: var(--e-4);
+  }
+  .breve:first-child { padding-left: 0; border-left: 0; }
+  .breve:last-child { padding-right: 0; }
+  .breve__enlace { padding-block: 0; }
+}
+
+/* --- EN PROFUNDIDAD: reportajes largos en horizontal --- */
+.profundidad { padding-block: var(--e-seccion); }
+
+.profundidad__lista {
+  display: grid;
+  gap: var(--e-8);
+}
+
+.reportaje { border-top: var(--linea); padding-top: var(--e-6); }
+.reportaje:first-child { border-top: 0; padding-top: 0; }
+
+.reportaje__enlace {
+  display: grid;
+  gap: var(--e-5);
+  text-decoration: none;
+  color: inherit;
+}
+
+.reportaje__figura {
+  overflow: hidden;
+  background-color: var(--color-gris);
+}
+.reportaje__figura img {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  transition: transform var(--mov-lento) var(--curva);
+}
+.reportaje__enlace:hover .reportaje__figura img { transform: scale(1.04); }
+
+.reportaje__texto {
+  display: grid;
+  gap: var(--e-3);
+  align-content: center;
+  justify-items: start;
+}
+
+.reportaje__titulo {
+  font-size: var(--tit-sm);
+  line-height: 1.14;
+  transition: color var(--transicion);
+}
+.reportaje__enlace:hover .reportaje__titulo { color: var(--color-rojo); }
+
+.reportaje__resumen {
+  max-width: 52ch;
+  color: var(--color-texto-suave);
+}
+
+.reportaje__enlace:hover .enlace-leer {
+  color: var(--color-rojo);
+  background-size: 100% 1px;
+}
+
+@media (min-width: 48em) {
+  .reportaje__enlace {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: var(--e-6);
+    align-items: center;
+  }
+  /* El segundo reportaje invierte el orden: imagen a la derecha.
+     Alternar evita que dos bloques seguidos parezcan el mismo. */
+  .reportaje:nth-child(even) .reportaje__figura { order: 2; }
+}
+
+@media (min-width: 80em) {
+  .reportaje__enlace { grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr); }
+  .reportaje__titulo { font-size: var(--tit-md); }
+}
+
+/* --- COLUMNISTAS: la opinión se presenta por su firma --- */
+.columnistas {
+  padding-block: var(--e-seccion);
+  border-top: var(--linea);
+}
+
+.columnistas__rejilla {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--e-6);
+}
+
+.columna { border-top: 2px solid var(--color-negro); padding-top: var(--e-4); }
+
+.columna__enlace {
+  display: grid;
+  gap: var(--e-3);
+  text-decoration: none;
+  color: inherit;
+}
+
+.columna__firma {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--e-3);
+}
+
+.columna__firma .firma__inicial {
+  width: 34px;
+  height: 34px;
+  font-size: 1rem;
+}
+
+.columna__autor {
+  font-size: var(--txt-xs);
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.columna__titulo {
+  font-size: 1.28rem;
+  font-style: italic;
+  font-weight: 600;
+  line-height: 1.22;
+  transition: color var(--transicion);
+}
+.columna__enlace:hover .columna__titulo { color: var(--color-rojo); }
+.columna__enlace:hover .firma__inicial { background-color: var(--color-rojo); }
+
+@media (min-width: 48em) {
+  .columnistas__rejilla { grid-template-columns: repeat(2, 1fr); gap: var(--e-6); }
+}
+
+@media (min-width: 64em) {
+  .columnistas__rejilla { grid-template-columns: repeat(3, 1fr); }
 }
 
 

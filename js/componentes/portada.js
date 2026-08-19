@@ -5,7 +5,7 @@
    y va rellenando el mismo bloque de HTML.
    ========================================================================== */
 
-import { elemento, elementos, prefiereMenosMovimiento } from '../utilidades/texto.js';
+import { elemento, elementos, prefiereMenosMovimiento, rutas } from '../utilidades/texto.js';
 
 const CONFIG = {
   rotacionAutomatica: true,    // false = solo cambia si el lector pulsa
@@ -54,8 +54,7 @@ export function iniciarPortada(destacados) {
                                ' \u00B7 ' + noticia.minutosLectura + ' min de lectura';
     destino.imagen.src = noticia.imagen;
     destino.imagen.alt = noticia.alt;
-    destino.enlace.href = '#';
-    destino.enlace.dataset.slug = noticia.slug;
+    destino.enlace.href = rutas.articulo(noticia.slug);
   }
 
   function marcarPuntoActivo() {

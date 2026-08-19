@@ -7,11 +7,21 @@
     "resumen": "Un análisis profundo sobre los desafíos estructurales que enfrenta la República Dominicana y las reformas que podrían transformar su futuro.",
     "imagen": "assets/images/portada-1.svg",
     "alt": "Fachada del Palacio Nacional con su cúpula y la bandera dominicana",
-    "autor": { "nombre": "Redacción", "slug": "redaccion" },
+    "autor": {
+      "nombre": "Redacción",
+      "slug": "redaccion"
+    },
     "fecha": "2026-08-19T07:00:00",
     "minutosLectura": 8,
     "destacado": true,
-    "lecturas": 5210
+    "lecturas": 5210,
+    "cuerpo": [
+      "La conversación sobre reformas lleva años instalada en el país, pero casi siempre entra por la puerta del calendario electoral y sale por la misma puerta cuando terminan las votaciones. Entre una cosa y otra, los problemas de fondo permanecen intactos.",
+      "Hay tres frentes que aparecen en todos los diagnósticos serios: un sistema fiscal que recauda poco y mal, una administración pública que crece sin que mejore el servicio, y un aparato judicial que tarda tanto en resolver que resolver ya no repara nada.",
+      "Ninguno de los tres se arregla en un período de gobierno. Y ahí está la trampa: reformar cuesta capital político inmediato y devuelve resultados que verá el que venga después. Pocos firman algo así.",
+      "Los técnicos consultados por El Párrafo coinciden en un punto incómodo. La discusión pública se concentra en cuánto se recauda y casi nunca en en qué se gasta. Sin esa segunda mitad de la pregunta, cualquier reforma nace coja.",
+      "Queda una cuestión que ningún informe responde: si el país sabe lo que hay que hacer desde hace una década, qué es exactamente lo que lo impide."
+    ]
   },
   {
     "id": 2,
@@ -21,11 +31,20 @@
     "resumen": "El consumo interno pierde fuerza y las exportaciones sostienen las cifras. Los analistas piden mirar el segundo semestre con prudencia.",
     "imagen": "assets/images/portada-2.svg",
     "alt": "Silueta de la ciudad al atardecer con el sol descendiendo",
-    "autor": { "nombre": "Laura Beltré", "slug": "laura-beltre" },
+    "autor": {
+      "nombre": "Laura Beltré",
+      "slug": "laura-beltre"
+    },
     "fecha": "2026-08-19T06:20:00",
     "minutosLectura": 6,
     "destacado": true,
-    "lecturas": 4380
+    "lecturas": 4380,
+    "cuerpo": [
+      "Los números del segundo trimestre no traen sobresaltos, pero tampoco alivio. El crecimiento se sostiene, la inflación cede despacio y el consumo interno sigue mostrando la fatiga que arrastra desde el año pasado.",
+      "Las exportaciones y el turismo continúan cargando con el peso. Es una buena noticia con letra pequeña: cuanto más depende una economía de lo que ocurre fuera, menos control tiene sobre su propio ritmo.",
+      "El empleo formal creció, aunque por debajo de lo previsto. La mayoría de las plazas nuevas se concentra en servicios de baja productividad, lo que explica que la gente sienta menos mejora de la que sugieren los indicadores.",
+      "Para el segundo semestre, los analistas piden prudencia. El precio de los combustibles y las tasas internacionales pueden mover el tablero en cuestión de semanas, y el margen fiscal para amortiguar un golpe es estrecho."
+    ]
   },
   {
     "id": 3,
@@ -35,11 +54,20 @@
     "resumen": "Una región que vota casi sin pausa y que llega a cada elección con las mismas preguntas todavía sin responder.",
     "imagen": "assets/images/internacional-mapa.svg",
     "alt": "Globo terráqueo con rutas marcadas entre ciudades",
-    "autor": { "nombre": "Josué Fermín", "slug": "josue-fermin" },
+    "autor": {
+      "nombre": "Josué Fermín",
+      "slug": "josue-fermin"
+    },
     "fecha": "2026-08-18T18:40:00",
     "minutosLectura": 7,
     "destacado": true,
-    "lecturas": 3980
+    "lecturas": 3980,
+    "cuerpo": [
+      "América Latina vota casi sin pausa. En los últimos veinticuatro meses la región ha celebrado elecciones generales, municipales y referendos que, sumados, movilizaron a más de doscientos millones de personas.",
+      "Lo llamativo no es la frecuencia sino la repetición del guion. Cambian los nombres y los colores, y regresan las mismas preguntas: seguridad, empleo joven, migración y una desconfianza en las instituciones que ya no distingue entre gobiernos de un signo u otro.",
+      "Los estudios de opinión regionales muestran un patrón constante: la mayoría sigue prefiriendo la democracia a cualquier alternativa, pero una porción creciente dice no sentirse representada por nadie. Esas dos cosas a la vez son un terreno inestable.",
+      "El Caribe llega a esa conversación con una agenda propia —clima, energía y deuda— que rara vez ocupa el centro de las cumbres regionales."
+    ]
   },
   {
     "id": 4,
@@ -49,11 +77,20 @@
     "resumen": "Educación, empleo y oportunidades: las voces de una generación que quiere ser escuchada y que ya no espera permiso para hablar.",
     "imagen": "assets/images/noticia-sociedad.svg",
     "alt": "Multitud de jóvenes caminando por una avenida de la ciudad",
-    "autor": { "nombre": "Ana Cordero", "slug": "ana-cordero" },
+    "autor": {
+      "nombre": "Ana Cordero",
+      "slug": "ana-cordero"
+    },
     "fecha": "2026-08-19T05:10:00",
     "minutosLectura": 6,
     "destacado": false,
-    "lecturas": 4120
+    "lecturas": 4120,
+    "cuerpo": [
+      "Hablar de la juventud dominicana en singular es el primer error. No es un bloque: hay quien termina una carrera y emigra, quien monta un negocio desde el teléfono y quien lleva tres años buscando el primer empleo formal.",
+      "Lo que sí comparten es un cálculo parecido. Estudiar sigue siendo la vía más segura, pero ya no garantiza nada por sí sola, y esa certeza rota cambia por completo la forma de planificar una vida.",
+      "En las conversaciones aparece una palabra una y otra vez: tiempo. Tiempo perdido en transporte, en trámites, en procesos de selección que nunca contestan. La sensación no es tanto de puertas cerradas como de puertas lentas.",
+      "También aparece algo menos citado en los informes: quieren quedarse. La emigración se discute como plan B, no como aspiración. Qué haga falta para que ese plan B no se active es, en el fondo, la pregunta del país."
+    ]
   },
   {
     "id": 5,
@@ -63,11 +100,20 @@
     "resumen": "El consumo interno pierde fuerza y las exportaciones sostienen las cifras del período según el último informe del Banco Central.",
     "imagen": "assets/images/noticia-economia.svg",
     "alt": "Contenedores apilados en el puerto junto a una grúa",
-    "autor": { "nombre": "Miguel Ureña", "slug": "miguel-urena" },
+    "autor": {
+      "nombre": "Miguel Ureña",
+      "slug": "miguel-urena"
+    },
     "fecha": "2026-08-19T03:30:00",
     "minutosLectura": 4,
     "destacado": false,
-    "lecturas": 2760
+    "lecturas": 2760,
+    "cuerpo": [
+      "El Banco Central confirmó lo que el comercio venía notando desde marzo: el ritmo de crecimiento se moderó en el primer trimestre y el consumo de los hogares fue el principal responsable.",
+      "El dato no describe una crisis. Describe un cambio de velocidad después de dos años de expansión sostenida, algo que los economistas esperaban aunque discrepan sobre cuánto durará.",
+      "Construcción y comercio, los dos sectores que más empleo mueven, fueron los que más se enfriaron. Las zonas francas y el turismo compensaron parte de la caída.",
+      "La pregunta para los próximos meses es si el consumo se recupera por su cuenta o necesita un empujón. Y con las cuentas públicas ajustadas, ese empujón no está garantizado."
+    ]
   },
   {
     "id": 6,
@@ -77,11 +123,20 @@
     "resumen": "Las delegaciones llegan con posiciones distantes y una lista de temas que nadie quiere aplazar una vez más.",
     "imagen": "assets/images/noticia-internacional.svg",
     "alt": "Salón de una asamblea internacional con banderas y podio",
-    "autor": { "nombre": "Redacción", "slug": "redaccion" },
+    "autor": {
+      "nombre": "Redacción",
+      "slug": "redaccion"
+    },
     "fecha": "2026-08-19T01:15:00",
     "minutosLectura": 4,
     "destacado": false,
-    "lecturas": 2140
+    "lecturas": 2140,
+    "cuerpo": [
+      "La Asamblea General arrancó con el guion previsible de los últimos años: discursos largos, pasillos concurridos y una lista de temas donde ninguna delegación quiere ceder primero.",
+      "Tres asuntos dominan el ambiente. Los conflictos abiertos que ya nadie llama temporales, el financiamiento climático que se prometió y no llegó completo, y una reforma del Consejo de Seguridad que se discute desde hace tres décadas.",
+      "Los países pequeños llegaron mejor coordinados que otros años. Varias delegaciones caribeñas presentaron posiciones conjuntas sobre deuda y desastres naturales, una estrategia que les da un peso que por separado no tendrían.",
+      "El resultado más probable, dicen los veteranos de estas cumbres, es un documento de consenso sin plazos. La pregunta es si eso todavía cuenta como resultado."
+    ]
   },
   {
     "id": 7,
@@ -91,11 +146,20 @@
     "resumen": "Librerías independientes y clubes de lectura cuentan qué se lee hoy en el país y por qué el papel resiste.",
     "imagen": "assets/images/noticia-cultura.svg",
     "alt": "Estantería con libros de distintos tamaños y colores",
-    "autor": { "nombre": "Paola Then", "slug": "paola-then" },
+    "autor": {
+      "nombre": "Paola Then",
+      "slug": "paola-then"
+    },
     "fecha": "2026-08-18T20:00:00",
     "minutosLectura": 5,
     "destacado": false,
-    "lecturas": 3310
+    "lecturas": 3310,
+    "cuerpo": [
+      "En las librerías independientes del país está pasando algo que los números generales no capturan: la venta de ensayo y de narrativa latinoamericana viene creciendo, y el comprador es más joven de lo que era hace cinco años.",
+      "Los clubes de lectura explican buena parte del fenómeno. Se organizan por redes sociales, se reúnen en cafeterías y funcionan con una regla simple: se lee poco, se conversa mucho.",
+      "El papel resiste por motivos que poco tienen que ver con la nostalgia. Quienes lo eligen mencionan sobre todo una cosa: es el único formato que no compite con notificaciones.",
+      "Los libreros, sin embargo, señalan el mismo obstáculo de siempre. El precio de importación mantiene fuera del alcance de muchos lectores títulos que en otros países cuestan la mitad."
+    ]
   },
   {
     "id": 8,
@@ -105,11 +169,20 @@
     "resumen": "Tres años de trabajos y un presupuesto que creció dos veces dejan una pregunta abierta: quién usará el corredor cuando por fin abra.",
     "imagen": "assets/images/portada-3.svg",
     "alt": "Puente vial de arcos sobre el río, visto de perfil",
-    "autor": { "nombre": "Josué Fermín", "slug": "josue-fermin" },
+    "autor": {
+      "nombre": "Josué Fermín",
+      "slug": "josue-fermin"
+    },
     "fecha": "2026-08-18T16:45:00",
     "minutosLectura": 7,
     "destacado": false,
-    "lecturas": 2880
+    "lecturas": 2880,
+    "cuerpo": [
+      "La obra lleva tres años abierta y ha cambiado dos veces de presupuesto. El corredor promete conectar en veinte minutos zonas que hoy pueden tardar una hora larga en hora pico.",
+      "Los estudios de tránsito que sostienen el proyecto se hicieron antes de la pandemia, cuando los patrones de desplazamiento eran otros. Ninguna autoridad ha actualizado públicamente esas proyecciones.",
+      "En los barrios que atraviesa el trazado, la conversación es distinta a la de los informes. Preocupan los accesos peatonales, el ruido y qué pasará con los negocios que quedaron detrás de las vallas durante tres años.",
+      "La experiencia de otras ciudades de la región sugiere una lección incómoda: una vía nueva alivia el tráfico durante unos años y después lo atrae. Sin transporte público que la acompañe, el alivio tiene fecha de caducidad."
+    ]
   },
   {
     "id": 9,
@@ -119,11 +192,20 @@
     "resumen": "Casi doscientos mil votantes nuevos entran al registro. La mayoría tiene menos de veinticinco años y vota por primera vez.",
     "imagen": "assets/images/politica-urna.svg",
     "alt": "Urna de votación con una papeleta marcada",
-    "autor": { "nombre": "Ana Cordero", "slug": "ana-cordero" },
+    "autor": {
+      "nombre": "Ana Cordero",
+      "slug": "ana-cordero"
+    },
     "fecha": "2026-08-18T14:20:00",
     "minutosLectura": 5,
     "destacado": false,
-    "lecturas": 1840
+    "lecturas": 1840,
+    "cuerpo": [
+      "El registro electoral sumó casi doscientos mil votantes nuevos de cara a las próximas municipales. Es el mayor incremento en un ciclo intermedio de la última década.",
+      "La mayoría son personas que cumplieron dieciocho años desde la última convocatoria. Votarán por primera vez en elecciones locales, las que menos participación suelen convocar y más directamente afectan la vida diaria.",
+      "Los partidos ya ajustaron sus estrategias. La inversión en campaña digital creció de forma notable, aunque los especialistas advierten que la conversión de vistas en votos sigue siendo una incógnita.",
+      "En el interior del país el reto es otro y más viejo: llevar el padrón actualizado a municipios donde el traslado a un centro de votación todavía puede llevar una hora."
+    ]
   },
   {
     "id": 10,
@@ -133,11 +215,20 @@
     "resumen": "El atasco judicial se mide en años. Jueces y defensores coinciden en el diagnóstico pero no en la salida.",
     "imagen": "assets/images/politica-justicia.svg",
     "alt": "Balanza de la justicia sobre un pedestal",
-    "autor": { "nombre": "Josué Fermín", "slug": "josue-fermin" },
+    "autor": {
+      "nombre": "Josué Fermín",
+      "slug": "josue-fermin"
+    },
     "fecha": "2026-08-18T11:05:00",
     "minutosLectura": 7,
     "destacado": false,
-    "lecturas": 3120
+    "lecturas": 3120,
+    "cuerpo": [
+      "Catorce mil expedientes esperan sentencia. Puesto en años, algunos casos llevan más tiempo en el sistema que la pena máxima que podrían acabar imponiendo.",
+      "Jueces, fiscales y defensores coinciden en el diagnóstico y se separan en la salida. Unos piden más plazas y presupuesto; otros sostienen que el problema es de procedimiento y que sin cambiarlo, más personal solo produciría más atascos.",
+      "El costo humano rara vez aparece en las estadísticas. Detrás de cada expediente hay alguien esperando: una víctima sin reparación, un acusado sin resolución, familias que llevan años organizando su vida alrededor de una fecha que se aplaza.",
+      "Los intentos de digitalización avanzaron en las capitales y se detuvieron en el resto del país, donde todavía hay tribunales que trabajan con expediente físico y una sola copia."
+    ]
   },
   {
     "id": 11,
@@ -147,11 +238,20 @@
     "resumen": "Las remesas de verano y una intervención discreta del Banco Central frenaron la caída. Nadie se atreve a hablar de calma.",
     "imagen": "assets/images/economia-grafico.svg",
     "alt": "Gráfico de barras con una línea de tendencia",
-    "autor": { "nombre": "Laura Beltré", "slug": "laura-beltre" },
+    "autor": {
+      "nombre": "Laura Beltré",
+      "slug": "laura-beltre"
+    },
     "fecha": "2026-08-18T09:30:00",
     "minutosLectura": 5,
     "destacado": false,
-    "lecturas": 1990
+    "lecturas": 1990,
+    "cuerpo": [
+      "Tras tres meses de presión, el tipo de cambio encontró un suelo. Las remesas de verano y una intervención discreta del Banco Central frenaron la caída del peso frente al dólar.",
+      "Nadie en el sector financiero se atreve a llamarlo calma. El equilibrio depende de dos factores que el país no controla: la política monetaria estadounidense y el precio internacional de los combustibles.",
+      "Para los importadores, la estabilidad llega tarde. Los contratos firmados en el peor momento del año ya trasladaron su costo a los precios de estantería, y esos precios rara vez bajan cuando la presión afloja.",
+      "El exportador vive la película al revés: cada punto de apreciación del peso le resta competitividad justo cuando la demanda externa empezaba a recuperarse."
+    ]
   },
   {
     "id": 12,
@@ -161,11 +261,20 @@
     "resumen": "Fían, abren a las seis y conocen a cada cliente por su nombre. El comercio de barrio explica por qué sigue en pie.",
     "imagen": "assets/images/economia-mercado.svg",
     "alt": "Puestos de un mercado con toldos y mercancía",
-    "autor": { "nombre": "Ana Cordero", "slug": "ana-cordero" },
+    "autor": {
+      "nombre": "Ana Cordero",
+      "slug": "ana-cordero"
+    },
     "fecha": "2026-08-17T19:50:00",
     "minutosLectura": 6,
     "destacado": false,
-    "lecturas": 3540
+    "lecturas": 3540,
+    "cuerpo": [
+      "Fían, abren a las seis de la mañana y conocen a cada cliente por su nombre. El colmado sigue siendo el primer punto de compra para una porción enorme de los hogares dominicanos.",
+      "La explicación económica es menos romántica de lo que parece: venden en las cantidades que la gente puede pagar hoy, no en las que conviene comprar. Media libra, una unidad, lo que alcance.",
+      "El crédito informal es la otra pata. Un cuaderno, un nombre y una confianza que no pide garantías ni cobra intereses. Ningún banco compite con eso en el barrio.",
+      "Las cadenas grandes ganaron terreno en las zonas de mayor ingreso y se detuvieron donde el metro cuadrado no compensa. Ahí, el colmado no resiste por tradición: resiste porque nadie más quiere ese cliente."
+    ]
   },
   {
     "id": 13,
@@ -175,11 +284,20 @@
     "resumen": "En doce escuelas rurales los maestros construyeron su propio método. Los resultados sorprendieron al ministerio.",
     "imagen": "assets/images/sociedad-aula.svg",
     "alt": "Aula con pizarra y pupitres ocupados",
-    "autor": { "nombre": "Paola Then", "slug": "paola-then" },
+    "autor": {
+      "nombre": "Paola Then",
+      "slug": "paola-then"
+    },
     "fecha": "2026-08-17T15:10:00",
     "minutosLectura": 5,
     "destacado": false,
-    "lecturas": 2310
+    "lecturas": 2310,
+    "cuerpo": [
+      "En doce escuelas rurales sin conexión estable, los maestros construyeron su propio método durante la pandemia. Guías impresas, rutas semanales de entrega y un teléfono comunitario para dudas.",
+      "Lo que empezó como una solución de emergencia se quedó. Los resultados en comprensión lectora de esos centros mejoraron por encima de la media provincial, y el ministerio tardó dos años en ir a mirar por qué.",
+      "Los propios docentes desconfían de las conclusiones fáciles. Señalan que el factor decisivo no fue el material sino el seguimiento: alguien pasaba cada semana y preguntaba por cada niño con nombre y apellido.",
+      "La pregunta que deja el caso es si un sistema puede replicar eso a escala, o si lo que funcionó fue exactamente lo contrario de la escala."
+    ]
   },
   {
     "id": 14,
@@ -189,11 +307,20 @@
     "resumen": "Ninguna institución publica cuánto tarda una cita. Reconstruimos el recorrido de seis pacientes durante cuatro meses.",
     "imagen": "assets/images/sociedad-salud.svg",
     "alt": "Edificio de hospital con una cruz roja y un electrocardiograma",
-    "autor": { "nombre": "Miguel Ureña", "slug": "miguel-urena" },
+    "autor": {
+      "nombre": "Miguel Ureña",
+      "slug": "miguel-urena"
+    },
     "fecha": "2026-08-17T08:00:00",
     "minutosLectura": 9,
     "destacado": false,
-    "lecturas": 3670
+    "lecturas": 3670,
+    "cuerpo": [
+      "Ninguna institución publica cuánto se tarda en conseguir una cita de especialidad en la red pública. Sin ese dato, la espera no existe oficialmente.",
+      "El Párrafo siguió durante cuatro meses el recorrido de seis pacientes en tres provincias. Los tiempos entre la primera consulta y el diagnóstico definitivo fueron de once días en el mejor caso y de casi cinco meses en el peor.",
+      "Las diferencias no se explican por la gravedad del cuadro. Se explican por la provincia, por el día de la semana y, en dos de los seis casos, por conocer a alguien dentro del hospital.",
+      "El personal médico entrevistado no discute las cifras. Discute el marco: llevan años pidiendo un sistema de registro que permita medir, precisamente porque lo que no se mide no entra en ningún presupuesto."
+    ]
   },
   {
     "id": 15,
@@ -203,11 +330,20 @@
     "resumen": "Dos semanas de negociación terminan con un texto sin plazos. Los países del Caribe fueron los que más levantaron la voz.",
     "imagen": "assets/images/especial-naturaleza.svg",
     "alt": "Montañas y bosque de pinos al atardecer",
-    "autor": { "nombre": "Redacción", "slug": "redaccion" },
+    "autor": {
+      "nombre": "Redacción",
+      "slug": "redaccion"
+    },
     "fecha": "2026-08-16T21:30:00",
     "minutosLectura": 6,
     "destacado": false,
-    "lecturas": 1720
+    "lecturas": 1720,
+    "cuerpo": [
+      "Dos semanas de negociación terminaron con un texto que reconoce la urgencia y no fija plazos. Es el cuarto documento consecutivo con esa estructura.",
+      "El punto de ruptura volvió a ser el dinero. Los países con mayor cobertura forestal piden compensación por conservar; los que financiarían esa compensación exigen mecanismos de verificación que aún no existen.",
+      "Las delegaciones caribeñas fueron de las más activas. Su argumento es concreto: cada temporada de huracanes borra en semanas inversiones que tardaron años, y la factura la pagan economías que aportan una fracción mínima de las emisiones.",
+      "El acuerdo se aplaza a la próxima cumbre. Para entonces habrá pasado otra temporada."
+    ]
   },
   {
     "id": 16,
@@ -217,11 +353,20 @@
     "resumen": "Una generación de productores jóvenes reescribe el género sin pedirle permiso a nadie. Y funciona fuera del país.",
     "imagen": "assets/images/cultura-musica.svg",
     "alt": "Partitura con notas musicales y ecualizador",
-    "autor": { "nombre": "Paola Then", "slug": "paola-then" },
+    "autor": {
+      "nombre": "Paola Then",
+      "slug": "paola-then"
+    },
     "fecha": "2026-08-16T17:40:00",
     "minutosLectura": 5,
     "destacado": false,
-    "lecturas": 2950
+    "lecturas": 2950,
+    "cuerpo": [
+      "Una generación de productores jóvenes está reescribiendo el merengue sin pedir permiso. Tempos más lentos, producción electrónica y letras que hablan de lo que hablan sus oyentes.",
+      "Los puristas protestan, como protestaron en los ochenta y en los noventa. La diferencia es que ahora la discusión ocurre en comentarios y el veredicto lo dan las reproducciones.",
+      "El dato interesante está fuera del país. Buena parte de esas escuchas viene de España, Estados Unidos y Colombia, mercados donde el género llevaba dos décadas sin entrar en listas.",
+      "Los productores consultados coinciden en algo poco glamuroso: lo que cambió no fue el talento sino el acceso. Un disco que antes exigía un estudio y un sello hoy sale de un cuarto con una interfaz de cien dólares."
+    ]
   },
   {
     "id": 17,
@@ -231,11 +376,20 @@
     "resumen": "Entrada libre los domingos y talleres para los vecinos. Un año después, el público cambió de cara por completo.",
     "imagen": "assets/images/cultura-arte.svg",
     "alt": "Sala de museo con tres cuadros y visitantes",
-    "autor": { "nombre": "Ana Cordero", "slug": "ana-cordero" },
+    "autor": {
+      "nombre": "Ana Cordero",
+      "slug": "ana-cordero"
+    },
     "fecha": "2026-08-15T12:00:00",
     "minutosLectura": 4,
     "destacado": false,
-    "lecturas": 1580
+    "lecturas": 1580,
+    "cuerpo": [
+      "Entrada libre los domingos y talleres abiertos para los vecinos. La medida se anunció como una prueba de seis meses y ya cumplió un año.",
+      "El cambio más visible no está en las cifras de visitantes, que subieron, sino en quiénes son. La dirección estima que más de la mitad del público dominical nunca había entrado antes a un museo.",
+      "El equipo tuvo que reaprender oficio. Las visitas guiadas se acortaron, los textos de sala se reescribieron y se retiró la mayoría de las palabras que solo entiende quien estudió arte.",
+      "El presupuesto sigue siendo el punto frágil. La gratuidad se sostiene con patrocinio privado renovable cada año, lo que convierte cada diciembre en una negociación."
+    ]
   },
   {
     "id": 18,
@@ -245,11 +399,20 @@
     "resumen": "Miles de estudiantes de desarrollo de software cada año y pocas empresas donde aterrizar. Radiografía de una brecha.",
     "imagen": "assets/images/especial-tecnologia.svg",
     "alt": "Placa de circuito con un procesador central",
-    "autor": { "nombre": "Miguel Ureña", "slug": "miguel-urena" },
+    "autor": {
+      "nombre": "Miguel Ureña",
+      "slug": "miguel-urena"
+    },
     "fecha": "2026-08-15T09:20:00",
     "minutosLectura": 10,
     "destacado": false,
-    "lecturas": 4460
+    "lecturas": 4460,
+    "cuerpo": [
+      "Cada año, miles de estudiantes salen de las universidades dominicanas con un título en desarrollo de software. La pregunta que nadie responde bien es dónde aterrizan.",
+      "El país tiene talento formado y una industria local que todavía no absorbe ese volumen. El resultado es una fuga silenciosa: los mejores encuentran trabajo remoto para empresas extranjeras y facturan desde casa.",
+      "Eso no es necesariamente malo. Entra divisa, sube el nivel y se crea una red de profesionales con experiencia internacional. El problema aparece cuando esa red no construye nada aquí porque no hay para quién.",
+      "Los intentos de crear un polo tecnológico se han centrado en incentivos fiscales y espacios físicos. Los desarrolladores entrevistados mencionan otra cosa antes que esas dos: clientes locales dispuestos a pagar por software bien hecho."
+    ]
   },
   {
     "id": 19,
@@ -259,11 +422,20 @@
     "resumen": "Cada habitación nueva consume lo que veinte hogares. La costa este llegó a su límite y nadie quiere decirlo en voz alta.",
     "imagen": "assets/images/especial-turismo.svg",
     "alt": "Playa con palmeras y sombrilla al atardecer",
-    "autor": { "nombre": "Laura Beltré", "slug": "laura-beltre" },
+    "autor": {
+      "nombre": "Laura Beltré",
+      "slug": "laura-beltre"
+    },
     "fecha": "2026-08-14T18:00:00",
     "minutosLectura": 11,
     "destacado": false,
-    "lecturas": 5040
+    "lecturas": 5040,
+    "cuerpo": [
+      "La costa este cerró otra temporada récord. Al mismo tiempo, tres municipios turísticos aplicaron restricciones de agua a la población residente durante el verano.",
+      "Los números explican la tensión. Una habitación de hotel de gama alta consume al día lo que consumen unos veinte hogares, entre riego, piscinas, lavandería y climatización.",
+      "El sector responde con datos de eficiencia y plantas de tratamiento propias, y tiene parte de razón: los hoteles nuevos gastan bastante menos que los de hace veinte años. El problema es el total, no la unidad.",
+      "Ningún plan de ordenamiento vigente fija un techo de crecimiento por acuífero. Mientras no exista, cada permiso nuevo se evalúa como si fuera el único."
+    ]
   },
   {
     "id": 20,
@@ -273,11 +445,20 @@
     "resumen": "Discutimos etiquetas mientras las decisiones concretas —el presupuesto de una escuela, la ruta de un autobús, la firma de un contrato— pasan sin que nadie las mire de cerca.",
     "imagen": "assets/images/opinion-pluma.svg",
     "alt": "Pluma estilográfica apoyada sobre un texto escrito a mano",
-    "autor": { "nombre": "Daniel M.", "slug": "daniel-m" },
+    "autor": {
+      "nombre": "Daniel M.",
+      "slug": "daniel-m"
+    },
     "fecha": "2026-08-18T07:30:00",
     "minutosLectura": 6,
     "destacado": false,
-    "lecturas": 6120
+    "lecturas": 6120,
+    "cuerpo": [
+      "Nos hemos acostumbrado a colocar cada decisión en un eje de izquierda a derecha antes de examinarla. Es cómodo: ahorra pensar y garantiza aplausos de un lado.",
+      "El problema es que la mayoría de las decisiones que afectan la vida diaria no caben en ese eje. El presupuesto de una escuela, la ruta de un autobús, la firma de un contrato de basura. Nada de eso es de izquierda ni de derecha: es correcto o es negligente.",
+      "Mientras discutimos etiquetas, esas decisiones se toman sin público. No hay debate encendido sobre un pliego de licitación, y sin embargo ahí se juega más dinero que en tres campañas.",
+      "Reivindico una idea impopular: la posibilidad de estar de acuerdo con alguien en una cosa y en desacuerdo en otra. No es tibieza. Es la condición mínima para que una discusión sirva de algo."
+    ]
   },
   {
     "id": 21,
@@ -287,11 +468,20 @@
     "resumen": "Aprobamos normas que nadie consulta después. El problema no es legislar poco: es legislar sin memoria.",
     "imagen": "assets/images/opinion-cafe.svg",
     "alt": "Periódico doblado junto a una taza de café",
-    "autor": { "nombre": "Daniel M.", "slug": "daniel-m" },
+    "autor": {
+      "nombre": "Daniel M.",
+      "slug": "daniel-m"
+    },
     "fecha": "2026-08-16T07:30:00",
     "minutosLectura": 5,
     "destacado": false,
-    "lecturas": 2680
+    "lecturas": 2680,
+    "cuerpo": [
+      "Aprobamos leyes con una diligencia que se agota justo el día de la publicación. Después, casi nadie vuelve a leerlas.",
+      "No falta producción legislativa: sobra. Lo que falta es memoria. Se legisla encima de normas anteriores sin revisar si funcionaron, sin datos de aplicación y a veces sin saber que existían.",
+      "Una ley que no se evalúa es una declaración de intenciones cara. Ocupa espacio en el ordenamiento, genera obligaciones a alguien y no rinde cuentas a nadie.",
+      "La propuesta es aburrida y por eso no se hace: evaluar antes de proponer. Cinco páginas sobre qué pasó con lo anterior, antes de las cincuenta sobre lo siguiente."
+    ]
   },
   {
     "id": 22,
@@ -301,10 +491,19 @@
     "resumen": "El debate público se mide en decibelios. Una defensa incómoda de la conversación lenta y del derecho a cambiar de opinión.",
     "imagen": "assets/images/opinion-tribuna.svg",
     "alt": "Micrófono de tribuna con ondas de sonido",
-    "autor": { "nombre": "Paola Then", "slug": "paola-then" },
+    "autor": {
+      "nombre": "Paola Then",
+      "slug": "paola-then"
+    },
     "fecha": "2026-08-14T07:30:00",
     "minutosLectura": 4,
     "destacado": false,
-    "lecturas": 2240
+    "lecturas": 2240,
+    "cuerpo": [
+      "El debate público se mide en decibelios. Gana quien indigna más rápido, no quien argumenta mejor, y el formato premia exactamente eso.",
+      "La conversación lenta perdió prestigio. Pensar en voz alta, dudar, decir no lo sé todavía: todo eso se lee hoy como debilidad, cuando es la única forma honesta de acercarse a un asunto complicado.",
+      "Hay un derecho que se está perdiendo sin que nadie lo defienda: el derecho a cambiar de opinión. Si cada rectificación se archiva como traición, la única estrategia racional es no moverse nunca, aunque los hechos se muevan.",
+      "No pido moderación por moderación. Pido volumen proporcional a la certeza. Es una regla difícil de cumplir y bastante fácil de reconocer cuando falta."
+    ]
   }
 ]

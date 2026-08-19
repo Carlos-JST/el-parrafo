@@ -24,6 +24,8 @@ y no publica información verificada.
 
 ## Características actuales
 
+- Portada con bloques de distinto peso: apertura con carrusel, franja de
+  titulares breves, rejilla filtrable, reportajes largos y columnistas.
 - Cabecera editorial con barra superior, logo centrado y buscador.
 - Navegación por ocho secciones, con estado activo y barra fija al hacer scroll.
 - Portada con carrusel de tres noticias: flechas, indicadores, teclado (← →),
@@ -142,12 +144,15 @@ Completado:
 - **Fase 1** — Maquetación editorial, diseño responsive e identidad visual.
 - **Fase 2** — Interactividad con JavaScript: menú, búsqueda y carrusel.
 - **Fase 3** — Control de versiones con Git, repositorio en GitHub y publicación.
+- **Fase 4** — Datos separados del HTML, renderizado dinámico, filtros por
+  sección, búsqueda sobre datos y páginas interiores (artículo, sección y firma).
 - **Fase 4** — Datos separados de la presentación, renderizado dinámico,
   filtros por sección, módulos con `import`/`export`, `fetch` + `async/await`,
   estados de carga y error, sistema de movimiento y páginas interiores.
 
-El proyecto es hoy una sola página estática. No guarda datos, no tiene usuarios
-y no se conecta a ningún servidor.
+El proyecto son hoy cuatro páginas estáticas que leen sus datos de dos
+archivos JSON locales. No hay base de datos, no hay usuarios y no se envía
+nada a ningún servidor: el formulario del boletín solo valida y avisa.
 
 ## Roadmap
 

@@ -14,7 +14,7 @@
    ========================================================================== */
 
 import { crearTarjeta, crearTarjetaFantasma } from './tarjeta.js';
-import { elemento, fechaLegible } from '../utilidades/texto.js';
+import { elemento, fechaLegible, rutas } from '../utilidades/texto.js';
 
 const CATEGORIAS = ['Todas', 'Política', 'Economía', 'Sociedad',
                     'Internacional', 'Cultura', 'Opinión', 'Especiales'];
@@ -57,47 +57,56 @@ export function mostrarError(alReintentar) {
   estado.append(texto, boton);
 }
 
-export function iniciarNoticias(articulos) {
+/* opciones.conFiltros = false en la página de sección: allí ya sabemos
+   qué categoría se muestra, así que la barra de filtros sobra.
+   El resto del componente funciona igual. */
+export function iniciarNoticias(articulos, opciones) {
   const rejilla = document.getElementById('rejilla-noticias');
   const cajaFiltros = document.getElementById('filtros');
   const estado = document.getElementById('estado-noticias');
   const conteo = document.getElementById('conteo-noticias');
-  if (!rejilla || !cajaFiltros) return;
+  if (!rejilla) return;
 
-  estado.classList.remove('estado--error');
+  const conFiltros = Boolean(cajaFiltros) && (!opciones || opciones.conFiltros !== false);
+
+  if (estado) estado.classList.remove('estado--error');
 
   const botonVerMas = document.getElementById('ver-mas');
 
   /* --- ESTADO: dos variables mandan sobre todo lo que se ve ---
      Cambiar una de ellas y volver a dibujar es la ÚNICA forma de que
      cambie la pantalla. Nunca tocamos tarjetas sueltas a mano. */
-  let categoriaActiva = recuperarCategoria();
+  let categoriaActiva = conFiltros ? recuperarCategoria() : 'Todas';
   let cuantasVisibles = NOTICIAS_POR_TANDA;
 
-  // --- 1. Botones de filtro, creados a partir de la lista de categorías ---
-  cajaFiltros.innerHTML = '';
-  CATEGORIAS.forEach(function (nombre) {
+  // --- 1. Botones de filtro (solo donde hacen falta) ---
+  if (conFiltros) construirFiltros();
+
+  function construirFiltros() {
+    cajaFiltros.innerHTML = '';
+    CATEGORIAS.forEach(function (nombre) {
     const cuantos = nombre === 'Todas'
       ? articulos.length
       : articulos.filter(function (a) { return a.categoria === nombre; }).length;
 
-    if (cuantos === 0) return;             // no mostramos filtros vacíos
+      if (cuantos === 0) return;           // no mostramos filtros vacíos
 
-    const boton = document.createElement('button');
-    boton.type = 'button';
-    boton.className = 'filtro';
-    boton.dataset.categoria = nombre;
-    boton.setAttribute('aria-pressed', 'false');
-    boton.innerHTML = nombre + ' <span class="filtro__cuenta">' + cuantos + '</span>';
-    cajaFiltros.append(boton);
-  });
+      const boton = document.createElement('button');
+      boton.type = 'button';
+      boton.className = 'filtro';
+      boton.dataset.categoria = nombre;
+      boton.setAttribute('aria-pressed', 'false');
+      boton.innerHTML = nombre + ' <span class="filtro__cuenta">' + cuantos + '</span>';
+      cajaFiltros.append(boton);
+    });
+  }
 
   /* DELEGACIÓN DE EVENTOS: un solo listener en el contenedor en lugar de
      uno por botón. Los botones los acabamos de crear con JavaScript; si
      mañana añades una categoría, el listener ya la cubre sin tocar nada.
      event.target es el elemento exacto que se pulsó; closest sube por sus
      padres hasta encontrar el botón. */
-  cajaFiltros.addEventListener('click', function (evento) {
+  if (conFiltros) cajaFiltros.addEventListener('click', function (evento) {
     const boton = evento.target.closest('.filtro');
     if (!boton) return;
     categoriaActiva = boton.dataset.categoria;
@@ -113,11 +122,13 @@ export function iniciarNoticias(articulos) {
       : articulos.filter(function (a) { return a.categoria === categoriaActiva; });
 
     // Marcar qué filtro está activo
-    Array.from(cajaFiltros.children).forEach(function (boton) {
-      const activo = boton.dataset.categoria === categoriaActiva;
-      boton.classList.toggle('es-activo', activo);
-      boton.setAttribute('aria-pressed', String(activo));
-    });
+    if (conFiltros) {
+      Array.from(cajaFiltros.children).forEach(function (boton) {
+        const activo = boton.dataset.categoria === categoriaActiva;
+        boton.classList.toggle('es-activo', activo);
+        boton.setAttribute('aria-pressed', String(activo));
+      });
+    }
 
     /* Construimos todas las tarjetas dentro de un DocumentFragment: una
        bolsa que vive en memoria, fuera de la página. Al final la soltamos
@@ -143,9 +154,11 @@ export function iniciarNoticias(articulos) {
     // Avisa a main.js para que vigile las tarjetas nuevas
     document.dispatchEvent(new Event('contenido:cambio'));
 
-    estado.textContent = visibles.length === 0
-      ? 'No hay noticias en esta secci\u00F3n todav\u00EDa.'
-      : '';
+    if (estado) {
+      estado.textContent = visibles.length === 0
+        ? 'No hay noticias en esta secci\u00F3n todav\u00EDa.'
+        : '';
+    }
 
     if (conteo) {
       conteo.textContent = enPantalla.length + ' de ' + visibles.length +
@@ -167,8 +180,12 @@ export function iniciarNoticias(articulos) {
     });
   }
 
-  // --- 3. Lo más leído ---
-  dibujarMasLeido(articulos);
+  /* --- 3. Lo más leído ---
+     En la portada son los más leídos de todo el periódico. En una página
+     de sección también: al lector le interesa lo más leído del diario,
+     no lo más leído de las cuatro noticias que ya tiene delante.
+     Por eso se puede pasar una lista distinta con opciones.masLeidos. */
+  dibujarMasLeido((opciones && opciones.masLeidos) || articulos);
 
   dibujar();
   return { dibujar: dibujar };
@@ -198,8 +215,7 @@ function dibujarMasLeido(articulos) {
 
     const enlace = document.createElement('a');
     enlace.className = 'mas-leido__enlace';
-    enlace.href = '#';
-    enlace.dataset.slug = articulo.slug;
+    enlace.href = rutas.articulo(articulo.slug);
 
     const titulo = document.createElement('span');
     titulo.className = 'mas-leido__texto';
@@ -227,7 +243,8 @@ export function dibujarOpinion(articulos) {
     titulo: elemento('[data-opinion-titulo]'),
     resumen: elemento('[data-opinion-resumen]'),
     autor: elemento('[data-opinion-autor]'),
-    imagen: elemento('[data-opinion-imagen]')
+    imagen: elemento('[data-opinion-imagen]'),
+    enlace: elemento('[data-opinion-enlace]')
   };
 
   if (destino.titulo) destino.titulo.textContent = columna.titulo;
@@ -237,6 +254,7 @@ export function dibujarOpinion(articulos) {
     destino.imagen.src = columna.imagen;
     destino.imagen.alt = columna.alt;
   }
+  if (destino.enlace) destino.enlace.href = rutas.articulo(columna.slug);
 }
 
 /* ------------------------------------------------------------------

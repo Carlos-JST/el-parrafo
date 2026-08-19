@@ -24,6 +24,7 @@ import { iniciarBoletin } from './componentes/boletin.js';
 import { iniciarPortada } from './componentes/portada.js';
 import { iniciarNoticias, dibujarOpinion, mostrarCargando, mostrarError } from './componentes/noticias.js';
 import { iniciarBuscador } from './componentes/buscador.js';
+import { dibujarBreves, dibujarProfundidad, dibujarColumnistas } from './componentes/bloques.js';
 import { elementos, prefiereMenosMovimiento } from './utilidades/texto.js';
 
 const PORCION_VISIBLE_PARA_REVELAR = 0.15;
@@ -56,8 +57,18 @@ async function arrancarContenido() {
     const destacados = articulos.filter(function (a) { return a.destacado; });
 
     iniciarPortada(destacados);
+    dibujarBreves(articulos);
     iniciarNoticias(articulos);
+    dibujarProfundidad(articulos);
+
+    /* La franja "Entre líneas" muestra la columna más reciente.
+       Se la pasamos a dibujarColumnistas para que no la repita debajo. */
+    const columnaPrincipal = articulos.find(function (a) {
+      return a.categoria === 'Opinión';
+    });
     dibujarOpinion(articulos);
+    dibujarColumnistas(articulos, columnaPrincipal ? columnaPrincipal.slug : '');
+
     iniciarBuscador(articulos);
 
     iniciarRevelado();
@@ -93,7 +104,10 @@ function iniciarRevelado() {
   const grupos = [
     { selector: '.portada__pieza', escalon: 0 },
     { selector: '.seccion-cabeza', escalon: 0 },
+    { selector: '.breve', escalon: 50 },
     { selector: '.tarjeta', escalon: 60 },
+    { selector: '.reportaje', escalon: 120 },
+    { selector: '.columna', escalon: 90 },
     { selector: '.mas-leido', escalon: 0 },
     { selector: '.opinion__texto, .opinion__figura', escalon: 120 },
     { selector: '.boletin__caja', escalon: 0 },
